@@ -39,7 +39,7 @@ class AWGCharacter : public ACharacter
 
 public:
 	AWGCharacter();
-	
+
 
 protected:
 
@@ -57,10 +57,27 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UgameHUD> PlayerHUDClass;
+
+	UPROPERTY()
+	class UgameHUD* PlayerHUD;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character")
+	float MaxHealth = 100.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character")
+	float Health;
+
+	UFUNCTION()
+	void TakeDamage(float DamageAmount);
+	
 };
 

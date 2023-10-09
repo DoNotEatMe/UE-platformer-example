@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "WGGameMode.generated.h"
 
+
 UCLASS(minimalapi)
 class AWGGameMode : public AGameModeBase
 {
@@ -13,6 +14,22 @@ class AWGGameMode : public AGameModeBase
 
 public:
 	AWGGameMode();
+	
+	UFUNCTION(BlueprintCallable)
+	void GameOver(bool bWonGame);
+
+	UPROPERTY(BlueprintReadOnly)
+	double GameStartTime;
+
+	UPROPERTY(BlueprintReadOnly)
+	double GameEndTime;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UGameOver> GameOverHUDClass;
+
+	UPROPERTY()
+	class UGameOver* GameOverHUD;
+
 };
 
 

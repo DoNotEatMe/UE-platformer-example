@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "WG",
+			"Path": "D:\\UE_Proj\\WG\\Source\\WG.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "WGEditor",
+			"Path": "D:\\UE_Proj\\WG\\Source\\WGEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
