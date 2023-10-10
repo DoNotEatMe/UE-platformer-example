@@ -31,7 +31,7 @@ void UGameOver::RestartLevel()
 				Trap->ResetAllTimers();
 			}
 		}
-		UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetName(), false);
+		UGameplayStatics::OpenLevel(GetWorld(), "ThirdPersonMap", false);
 		
 	}
 	else
