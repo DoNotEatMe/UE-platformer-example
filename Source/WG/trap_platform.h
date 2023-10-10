@@ -77,6 +77,8 @@ private:
 	void WindChange(AActor* OtherActor,FVector WindDirection);
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float WindChangeRate = 2.f;
+	UPROPERTY(VisibleAnywhere, Category="Traps Settings|Wind")
+	bool bWindRight;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float WindPressure = 1.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")

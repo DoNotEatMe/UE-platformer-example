@@ -8,6 +8,7 @@
 
 #include "GameFramework/Actor.h"
 #include "Components/PrimitiveComponent.h"
+#include "Math/UnrealMathUtility.h"
 
 
 
@@ -26,6 +27,9 @@ Atrap_platform::Atrap_platform()
 	CollisionComp->SetBoxExtent(FVector(1.0f,1.0f,1.0f));
 
 	bIsTrapCooldown = false;
+
+	
+	
 	
 }
 
@@ -34,6 +38,7 @@ void Atrap_platform::BeginPlay()
 	Super::BeginPlay();
 	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &Atrap_platform::OnOverlapBegin);
 	CollisionComp->OnComponentEndOverlap.AddDynamic(this, &Atrap_platform::OnOverlapEnd);
+	bWindRight =  FMath::RandBool();
 }
 
 void Atrap_platform::Tick(float DeltaTime)
@@ -184,20 +189,28 @@ void Atrap_platform::Wind(AActor* OtherActor)
 	{
 		WindApply(OtherActor);
 	};
+	
 	GetWorldTimerManager().SetTimer(WindChangeHandle,WindApplyLambda,WindChangeRate,true, 0.f);
 }
 
 void Atrap_platform::WindApply(AActor* OtherActor)
 {
-	float BetterRandomDirection =  FMath::RandRange(MinYStrenght,MaxYStrenght);
-	if (BetterRandomDirection > 0)
+	
+	float BetterRandomDirection;
+	if (bWindRight)
 	{
-		BetterRandomDirection += 30.f;
+		BetterRandomDirection =  FMath::RandRange(30.f,MaxYStrenght);
+		
+		UE_LOG(LogTemp,Warning,TEXT("Right %f, %hdd"), BetterRandomDirection,bWindRight);
 	}
-	else
+	if (!bWindRight)
 	{
-		BetterRandomDirection -= 30.f;
+		
+		BetterRandomDirection =  FMath::RandRange(MinYStrenght,-30.f);
+		UE_LOG(LogTemp,Warning,TEXT("Left %f, %hdd"),BetterRandomDirection, bWindRight);
 	}
+	
+	bWindRight = !bWindRight;
 	
 	FVector WindDirection = FVector(0.f, BetterRandomDirection, 0.f);
 	
