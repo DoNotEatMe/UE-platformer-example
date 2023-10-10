@@ -56,6 +56,11 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
                     {
                         TrapPlatform->MovingPlatform();
                     }
+                    if (TrapPlatform->ActorHasTag("Hiding"))
+                    {
+                        TrapPlatform->HidingTrap();
+                    }
+                    
                 }
             }
             

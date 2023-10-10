@@ -8,6 +8,8 @@
 
 #include "GameFramework/Actor.h"
 #include "Components/PrimitiveComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Math/UnrealMathUtility.h"
 
 
@@ -24,12 +26,13 @@ Atrap_platform::Atrap_platform()
 	CollisionComp = CreateDefaultSubobject<UBoxComponent>("Collision");
 	CollisionComp->SetupAttachment(RootComponent);
 	CollisionComp->SetRelativeLocation(FVector(0.0f,0.0f,0.0f));
-	CollisionComp->SetBoxExtent(FVector(1.0f,1.0f,1.0f));
+	CollisionComp->SetBoxExtent(FVector(49.0f,49.0f,5.0f));
 
 	bIsTrapCooldown = false;
 
 	
 	
+
 	
 }
 
@@ -39,7 +42,14 @@ void Atrap_platform::BeginPlay()
 	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &Atrap_platform::OnOverlapBegin);
 	CollisionComp->OnComponentEndOverlap.AddDynamic(this, &Atrap_platform::OnOverlapEnd);
 	bWindRight =  FMath::RandBool();
+
+	AWGCharacter* Character = Cast<AWGCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+	if (Character){
+		UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Character->GetMovementComponent());
+		DefaultJump = Movement->JumpZVelocity;
+	}
 }
+
 
 void Atrap_platform::Tick(float DeltaTime)
 {
@@ -62,8 +72,12 @@ void Atrap_platform::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 	}
 	if (this->ActorHasTag("Shake"))
 	{
-		
 		ShakePrepare();
+		return;
+	}
+	if (this->ActorHasTag("Jump"))
+	{
+		JumpActivate(OtherActor);
 	}
 	
 }
@@ -74,6 +88,10 @@ void Atrap_platform::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* O
 		GetWorldTimerManager().ClearTimer(WindTimerHandle);
 		GetWorldTimerManager().ClearTimer(WindChangeHandle);
 		ResetMaterial();
+	}
+	if (this->ActorHasTag("Jump"))
+	{
+		JumpDeactivate(OtherActor);
 	}
 	
 }
@@ -270,8 +288,6 @@ void Atrap_platform::MoveObject()
 	this->SetActorLocation(TargetLocation);
 }
 
-
-
 //Shake Trap
 
 void Atrap_platform::ShakePrepare()
@@ -328,6 +344,57 @@ void Atrap_platform::Shake()
 }
 
 
+//Hiding Trap
+void Atrap_platform::HidingTrap()
+{
+	GetWorldTimerManager().SetTimer(HidingTrapHandler,this,&Atrap_platform::HideUnhide,HidingRate,true, StartHiding);
+}
+
+void Atrap_platform::HideUnhide()
+{
+
+	UPrimitiveComponent* RootComponent = this->FindComponentByClass<UPrimitiveComponent>();
+	if (!this->IsHidden())
+	{
+		this->SetActorHiddenInGame(true);
+		
+		if (RootComponent)
+		{
+			RootComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+		}
+	}
+	else
+	{
+		this->SetActorHiddenInGame(false);
+		if (RootComponent)
+		{
+			RootComponent->SetCollisionResponseToAllChannels(ECR_Block);
+		}
+	}
+}
+
+//Jump trap
+// TODO: Some times JumpZVelocity seting is not properly. Mostly in case spaming spacebar.
+void Atrap_platform::JumpActivate(AActor* OtherActor)
+{
+	
+	AWGCharacter* Character = Cast<AWGCharacter>(OtherActor);
+	if (Character){
+	UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Character->GetMovementComponent());
+	Movement->JumpZVelocity = JumpPower;
+	}
+}
+
+void Atrap_platform::JumpDeactivate(AActor* OtherActor)
+{
+	AWGCharacter* Character = Cast<AWGCharacter>(OtherActor);
+	if (Character){
+		UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Character->GetMovementComponent());
+		Movement->JumpZVelocity = DefaultJump;
+	}
+	
+}
+
 
 void Atrap_platform::ResetAllTimers()
 {
@@ -339,6 +406,7 @@ void Atrap_platform::ResetAllTimers()
 	GetWorld()->GetTimerManager().ClearTimer(WindChangeHandle);
 	GetWorld()->GetTimerManager().ClearTimer(ShakeHandler);
 	GetWorld()->GetTimerManager().ClearTimer(PlatformMovingHandle);
+	GetWorld()->GetTimerManager().ClearTimer(HidingTrapHandler);
 }
 	
 

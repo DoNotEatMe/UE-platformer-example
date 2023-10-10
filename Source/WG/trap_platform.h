@@ -106,6 +106,18 @@ private:
 	UFUNCTION()
 	void Shake();
 
+	//JumpTrap
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Jump")
+	float JumpPower = 1000.f;
+	UFUNCTION()
+	void JumpActivate(AActor* OtherActor);
+	UFUNCTION()
+    void JumpDeactivate(AActor* OtherActor);
+	UPROPERTY()
+	float DefaultJump;
+	
+	
+
 public:
 	//Moving platform
 	FTimerHandle PlatformMovingHandle;
@@ -126,6 +138,19 @@ public:
 	UFUNCTION()
 	void MoveObject();
 
+	//Hidding Trap
+	FTimerHandle HidingTrapHandler;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Hide/Unhide")
+	float HidingRate = 10.f;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Hide/Unhide")
+	float StartHiding = 3.f;
+	UFUNCTION()
+	void HidingTrap();
+	UFUNCTION()
+	void HideUnhide();
+
+	
+	
 
 	//Timers Reset for OpenLevel()
 	UFUNCTION()
