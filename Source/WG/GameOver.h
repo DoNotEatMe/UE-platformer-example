@@ -25,13 +25,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RestartLevel();
-
-	UFUNCTION(BlueprintCallable)
-	void ResetLevelFromUI();
-
-	UFUNCTION(BlueprintCallable)
-	void ResetPlayerFromUI(AController* NewPlayer, AActor* StartSpot);
-
+	
 	UFUNCTION()
 	void SetGameDuration (double GameStarTime, double GameEndtime);
 

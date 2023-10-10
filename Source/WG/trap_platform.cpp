@@ -69,7 +69,6 @@ void Atrap_platform::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* O
 		GetWorldTimerManager().ClearTimer(WindTimerHandle);
 		GetWorldTimerManager().ClearTimer(WindChangeHandle);
 		ResetMaterial();
-		return;
 	}
 	
 }

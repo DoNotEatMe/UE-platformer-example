@@ -8,7 +8,6 @@
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerController.h"
-#include "trigger.h"
 
 
 
@@ -33,31 +32,16 @@ void UGameOver::RestartLevel()
 			}
 		}
 		UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetName(), false);
-
-
 		
 	}
 	else
 	{
-		UE_LOG(LogTemp,Error,TEXT("ResetLevel() in GameOver.cpp error finding playercontroller/gamemode "));
+		UE_LOG(LogTemp,Error,TEXT("RestartLevel() in GameOver.cpp error finding playercontroller/gamemode "));
 	}
 	
 	
 }
 
-void UGameOver::ResetLevelFromUI()
-{
-	AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameMode->ResetLevel();
-	
-}
-
-void UGameOver::ResetPlayerFromUI(AController* NewPlayer, AActor* StartSpot)
-{
-	AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameMode->RestartPlayerAtPlayerStart(NewPlayer, StartSpot);
-	
-}
 
 void UGameOver::SetGameDuration(double GameStarTime, double GameEndtime)
 {
