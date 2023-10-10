@@ -7,6 +7,7 @@
 #include "trigger.generated.h"
 
 
+class Atrap_platform;
 class AWGGameMode;
 /**
  * 
@@ -32,6 +33,7 @@ public:
 
 	UPROPERTY()
 	AWGGameMode* GameMode;
+	
 private:
 
 };

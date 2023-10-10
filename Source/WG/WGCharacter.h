@@ -65,6 +65,7 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UgameHUD> PlayerHUDClass;
 
@@ -78,6 +79,8 @@ public:
 
 	UFUNCTION()
 	void TakeDamage(float DamageAmount);
+
+	
 	
 };
 

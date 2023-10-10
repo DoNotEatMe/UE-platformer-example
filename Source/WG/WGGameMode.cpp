@@ -6,8 +6,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameOver.h"
-#include "gameHUD.h"
 #include "Blueprint/UserWidget.h"
+#include "gameHUD.h"
 
 
 
@@ -23,9 +23,7 @@ AWGGameMode::AWGGameMode()
 
 	GameOverHUDClass = nullptr;
 	GameOverHUD = nullptr;
-
-
-	
+		
 }
 
 
@@ -38,26 +36,52 @@ void AWGGameMode::GameOver(bool bWonGame)
 		PlayerController->bShowMouseCursor = true;
 		PlayerController->bEnableClickEvents = true;
 
-		PlayerController->SetInputMode(FInputModeGameAndUI());
+		PlayerController->SetInputMode(FInputModeUIOnly());
 
 		GameEndTime = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-		UE_LOG(LogTemp,Warning,TEXT("start: %f"), GameStartTime);
-		UE_LOG(LogTemp,Warning,TEXT("end: %f"), GameEndTime);
 		if (GameOverHUDClass)
 		{
 			GameOverHUD = CreateWidget<UGameOver>(GetWorld(),GameOverHUDClass);
 			check(GameOverHUD);
 
-			
-			GameOverHUD->AddToPlayerScreen();
 			UGameplayStatics::SetGamePaused(GetWorld(),true);
+			GameOverHUD->AddToPlayerScreen();
+			
 			GameOverHUD->SetGameDuration(GameStartTime,GameEndTime);
 			GameOverHUD->SetWinLose(bWonGame);
+
+
+
+			
+			
 			
 		}
 		
 	}
 
+	
+	
+}
+
+void AWGGameMode::ResetLevel()
+{
+	Super::ResetLevel();
+}
+
+void AWGGameMode::RestartPlayerAtPlayerStart(AController* NewPlayer, AActor* StartSpot)
+{
+	Super::RestartPlayerAtPlayerStart(NewPlayer, StartSpot);
+}
+
+void AWGGameMode::DeleteHUD()
+{
+	GameOverHUD->SetVisibility(ESlateVisibility::Hidden);
+
+}
+
+void AWGGameMode::BeginPlay()
+{
+	Super::BeginPlay();
 	
 	
 }

@@ -54,6 +54,7 @@ AWGCharacter::AWGCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
+	
 	PlayerHUDClass = nullptr;
 	PlayerHUD = nullptr;
 
@@ -77,7 +78,7 @@ void AWGCharacter::BeginPlay()
 
 	if(PlayerHUDClass)
 	{
-		APlayerController* FPC = GetController<APlayerController>();
+		APlayerController* FPC = UGameplayStatics::GetPlayerController(GetWorld(),0);
 		check(FPC);
 		PlayerHUD = CreateWidget<UgameHUD>(FPC, PlayerHUDClass);
 		check(PlayerHUD);
@@ -86,10 +87,7 @@ void AWGCharacter::BeginPlay()
 		PlayerHUD->SetHealth(Health,MaxHealth);
 		
 	}
-
-
-
-
+	
 }
 
 void AWGCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -104,7 +102,8 @@ void AWGCharacter::TakeDamage(float DamageAmount)
 	if (DamageAmount > 0 && Health > 0)
 	{
 		Health -= DamageAmount;
-		UE_LOG(LogTemp,Warning, TEXT("Health lost. Current health: %f"), Health);
+		
+		
 		PlayerHUD->SetHealth(Health,MaxHealth);
 		if (Health <= 0)
 		{

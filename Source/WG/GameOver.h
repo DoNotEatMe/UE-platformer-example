@@ -15,6 +15,8 @@ class WG_API UGameOver : public UUserWidget
 	GENERATED_BODY()
 
 public:
+
+	
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	class UTextBlock* WinLose;
 	
@@ -23,6 +25,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RestartLevel();
+
+	UFUNCTION(BlueprintCallable)
+	void ResetLevelFromUI();
+
+	UFUNCTION(BlueprintCallable)
+	void ResetPlayerFromUI(AController* NewPlayer, AActor* StartSpot);
 
 	UFUNCTION()
 	void SetGameDuration (double GameStarTime, double GameEndtime);

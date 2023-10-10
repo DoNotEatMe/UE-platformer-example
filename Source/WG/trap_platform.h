@@ -64,7 +64,8 @@ private:
 	float ExplodeTime = 1.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode")
 	float ExplosionDamage = 10.f;
-
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode") 
+	
 	//Wind Setup
 	FTimerHandle WindTimerHandle;
 	FTimerHandle WindChangeHandle;
@@ -84,9 +85,50 @@ private:
 	float MinYStrenght = -100.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float MaxYStrenght = 100.f;
+
+
+	//Shake Setup
+	FTimerHandle ShakeHandler;
+	UPROPERTY()
+	bool bIsShaking;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Shake")
+	float ShakeDuration = 5.f;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Shake")
+	float ShakeIntensity = 1.f;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Shake")
+	float RedFlagTime = 1.f;
+	UPROPERTY()
+	FRotator InitialRotation;
+	UFUNCTION()
+	void ShakePrepare();
+	UFUNCTION()
+	void Shake();
+
+public:
+	//Moving platform
+	FTimerHandle PlatformMovingHandle;
+	UPROPERTY(VisibleAnywhere, Category="Traps Settings|Moving Platform")
+	FVector MoveStartLocation;
+	UPROPERTY(VisibleAnywhere, Category="Traps Settings|Moving Platform")
+	FVector MoveEndLocation;
+	UPROPERTY(VisibleAnywhere,Category="Traps Settings|Moving Platform")
+	bool bEnd;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Moving Platform")
+	float MoveRate = 1.f;
+	UPROPERTY(EditAnywhere,Category="Traps Settings|Moving Platform" )
+	float PlatformVelocityInSec= 5.f;
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Moving Platform")
+	float FirstTimeDelay = 0;
+	UFUNCTION()
+	void MovingPlatform();
+	UFUNCTION()
+	void MoveObject();
+
+
+	//Timers Reset for OpenLevel()
+	UFUNCTION()
+	void ResetAllTimers();
 	
-
-
 };
 
 

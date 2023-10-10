@@ -24,12 +24,21 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	double GameEndTime;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category="UI")
 	TSubclassOf<class UGameOver> GameOverHUDClass;
 
 	UPROPERTY()
 	class UGameOver* GameOverHUD;
 
+	virtual void ResetLevel() override;
+
+	virtual void RestartPlayerAtPlayerStart(AController* NewPlayer, AActor* StartSpot) override;
+
+	void DeleteHUD();
+
+
+protected:
+	virtual void BeginPlay() override;
 };
 
 

@@ -6,7 +6,8 @@
 #include "WGGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h" 
-#include "GameFramework/Character.h" 
+#include "GameFramework/Character.h"
+#include "trap_platform.h"
 
 
 Atrigger::Atrigger()
@@ -41,12 +42,23 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
     
     if (this->ActorHasTag("Start"))
     {
-        UE_LOG(LogTemp,Warning,TEXT("start: %f"), GameMode->GameStartTime);
         
         if (GameMode && !bTriggerActivated)
         {
+            TArray<AActor*> TrapArray;
+            UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),TrapArray);
+            for (AActor* Actor : TrapArray)
+            {
+                Atrap_platform* TrapPlatform = Cast<Atrap_platform>(Actor);
+                if (TrapPlatform)
+                {
+                    if (TrapPlatform->ActorHasTag("Moving"))
+                    {
+                        TrapPlatform->MovingPlatform();
+                    }
+                }
+            }
             
-            UE_LOG(LogTemp,Warning,TEXT("activated: %hhd"), bTriggerActivated);
             GameMode->GameStartTime =  UGameplayStatics::GetRealTimeSeconds(GetWorld());
             bTriggerActivated = true;
             
