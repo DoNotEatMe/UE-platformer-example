@@ -200,14 +200,10 @@ void Atrap_platform::WindApply(AActor* OtherActor)
 	if (bWindRight)
 	{
 		BetterRandomDirection =  FMath::RandRange(30.f,MaxYStrenght);
-		
-		UE_LOG(LogTemp,Warning,TEXT("Right %f, %hdd"), BetterRandomDirection,bWindRight);
 	}
 	if (!bWindRight)
 	{
-		
 		BetterRandomDirection =  FMath::RandRange(MinYStrenght,-30.f);
-		UE_LOG(LogTemp,Warning,TEXT("Left %f, %hdd"),BetterRandomDirection, bWindRight);
 	}
 	
 	bWindRight = !bWindRight;
