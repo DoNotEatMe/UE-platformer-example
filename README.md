@@ -1,7 +1,9 @@
 # WG-test
-WIP: Switching to Event Dispatchers
+## WIP 
+* Switching to Event Dispatchers
+* 
 
-
+## Features
 [Triggers](Source/WG/trigger.cpp):
 
 ATriggerBox base
@@ -21,7 +23,7 @@ AActor base
 * Jump Pad - Make character to jump higher
 
 
-#### Other features:
+## Other features:
 * Character have HP.
 * Character could receive damage (non canonical TakeDamage)
 * Gameplay UI for HP
