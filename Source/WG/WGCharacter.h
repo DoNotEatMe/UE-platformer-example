@@ -7,6 +7,8 @@
 #include "InputActionValue.h"
 #include "WGCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHealthUpdateFromCharacterDelegate, float, UpdHealth, float, UpdMaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGameOverFromCharacterDelegate, bool, bWinLose);
 
 UCLASS(config=Game)
 class AWGCharacter : public ACharacter
@@ -72,14 +74,27 @@ public:
 	UPROPERTY()
 	class UgameHUD* PlayerHUD;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health")
 	float MaxHealth = 100.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health")
 	float Health;
 
-	UFUNCTION()
-	void TakeDamage(float DamageAmount);
 
+	UFUNCTION()
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+	UFUNCTION()
+	void ApplyDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
+
+
+	
+	
+	UPROPERTY(BlueprintAssignable)
+	FHealthUpdateFromCharacterDelegate OnHealthUpdated;
+
+	UPROPERTY(BlueprintAssignable)
+	FGameOverFromCharacterDelegate OnGameOver;
+	
 	
 	
 };

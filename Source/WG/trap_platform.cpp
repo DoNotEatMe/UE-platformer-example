@@ -11,8 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Math/UnrealMathUtility.h"
-
-
+#include "Engine/DamageEvents.h"
 
 // Sets default values
 Atrap_platform::Atrap_platform()
@@ -77,7 +76,28 @@ void Atrap_platform::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 	}
 	if (this->ActorHasTag("Jump"))
 	{
+
+		/*UE_LOG(LogTemp,Warning,TEXT("--------------------------"));
+		UE_LOG(LogTemp,Warning,TEXT("Platform mName: %s"), *this->GetName());
+		DrawDebugSphere(GetWorld(),OtherActor->GetActorLocation(),10.f,12,FColor::Red,false,5);
+
+		AWGCharacter* Character = Cast<AWGCharacter>(OtherActor);
+		
+		if (Character)
+		{
+			UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Character->GetMovementComponent());
+			UE_LOG(LogTemp,Warning,TEXT("JumpZVelocity Before jump: %f"), Movement->JumpZVelocity)
+		}*/
+		
 		JumpActivate(OtherActor);
+		
+		/*
+		if (Character)
+		{
+			UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Character->GetMovementComponent());
+			UE_LOG(LogTemp,Warning,TEXT("JumpZVelocity After Jump: %f"), Movement->JumpZVelocity)
+		}
+		UE_LOG(LogTemp,Warning,TEXT("--------------------------"));*/
 	}
 	
 }
@@ -132,19 +152,16 @@ void Atrap_platform::Explode(AActor* OtherActor)
 	// But in case of test work we will get TArray of actors and cause damage to each who is a Player
 
 	TArray<AActor*> OverlappingActors;
-	GetOverlappingActors(OverlappingActors);
+	CollisionComp->GetOverlappingActors(OverlappingActors);
 
 	for (AActor* Actor : OverlappingActors)
 	{
-		if (Actor && CollisionComp->IsOverlappingActor(Actor))
-		{
 			AWGCharacter* Character = Cast<AWGCharacter>(Actor);
 			if (Character)
 			{
-				Character->TakeDamage(ExplosionDamage);
+				FDamageEvent DamageEvent; 				
+				Character->ApplyDamage(50.0f, DamageEvent, Character->GetController(), this);
 			}
-			
-		}
 	}
 	
 	
@@ -214,7 +231,7 @@ void Atrap_platform::Wind(AActor* OtherActor)
 void Atrap_platform::WindApply(AActor* OtherActor)
 {
 	
-	float BetterRandomDirection;
+	float BetterRandomDirection = 0.f;
 	if (bWindRight)
 	{
 		BetterRandomDirection =  FMath::RandRange(30.f,MaxYStrenght);
@@ -374,7 +391,7 @@ void Atrap_platform::HideUnhide()
 }
 
 //Jump trap
-// TODO: Some times JumpZVelocity seting is not properly. Mostly in case spaming spacebar.
+// TODO: Some times JumpZVelocity setting is not properly. Mostly in case spaming spacebar. Looks like begin/end overlap issue.
 void Atrap_platform::JumpActivate(AActor* OtherActor)
 {
 	

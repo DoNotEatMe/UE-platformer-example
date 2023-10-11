@@ -24,17 +24,13 @@ public:
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp,AActor* OtherActor,UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult);
 
 	UFUNCTION()
-	void OnOverlapEnd(
-	UPrimitiveComponent* OverlappedComp,
-	AActor* OtherActor,
-	UPrimitiveComponent* OtherComp,
-	int32 OtherBodyIndex
-);
+	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	virtual void Tick(float DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;
 
+	
 private:
 
 	//general
@@ -65,6 +61,7 @@ private:
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode")
 	float ExplosionDamage = 10.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode") 
+	float TrapDamage = 50.f;
 	
 	//Wind Setup
 	FTimerHandle WindTimerHandle;
@@ -119,6 +116,8 @@ private:
 	
 
 public:
+	
+	
 	//Moving platform
 	FTimerHandle PlatformMovingHandle;
 	UPROPERTY(VisibleAnywhere, Category="Traps Settings|Moving Platform")

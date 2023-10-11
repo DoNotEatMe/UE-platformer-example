@@ -8,8 +8,8 @@
 #include "GameOver.h"
 #include "Blueprint/UserWidget.h"
 #include "gameHUD.h"
-
-
+#include "WGCharacter.h"
+#include "trigger.h"
 
 AWGGameMode::AWGGameMode()
 {
@@ -23,7 +23,9 @@ AWGGameMode::AWGGameMode()
 
 	GameOverHUDClass = nullptr;
 	GameOverHUD = nullptr;
-		
+
+	
+
 }
 
 
@@ -50,11 +52,6 @@ void AWGGameMode::GameOver(bool bWonGame)
 			GameOverHUD->SetGameDuration(GameStartTime,GameEndTime);
 			GameOverHUD->SetWinLose(bWonGame);
 
-
-
-			
-			
-			
 		}
 		
 	}
@@ -82,9 +79,42 @@ void AWGGameMode::DeleteHUD()
 void AWGGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 	
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (Controller)
+	{
+		AWGCharacter* Player = Cast<AWGCharacter>(Controller->GetPawn());
+		if (Player)
+		{
+			Player->OnGameOver.AddDynamic(this,&AWGGameMode::GameOver);
+		}
+		
+	}
+
+	TArray<AActor*> Triggers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrigger::StaticClass(),Triggers);
+	for (AActor* Actor : Triggers)
+	{
+		Atrigger* Trigger = Cast<Atrigger>(Actor);
+		if(Trigger && Trigger->ActorHasTag("Win") || Trigger->ActorHasTag("Lose"))
+		{
+			Trigger->OnGameOver.AddDynamic(this,&AWGGameMode::GameOver);
+		}
+		else if (Trigger && Trigger->ActorHasTag("Start"))
+		{
+			Trigger->OnStart.AddDynamic(this,&AWGGameMode::SetGameStartTime);
+		}
+		
+	}
+	
+	
+
 	
 }
+
+
 
 
 

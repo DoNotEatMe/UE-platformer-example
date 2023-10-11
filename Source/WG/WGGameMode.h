@@ -7,6 +7,7 @@
 #include "WGGameMode.generated.h"
 
 
+
 UCLASS(minimalapi)
 class AWGGameMode : public AGameModeBase
 {
@@ -21,6 +22,12 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	double GameStartTime;
 
+	UFUNCTION()
+	void SetGameStartTime(double time)
+	{
+		GameStartTime = time;
+	};
+
 	UPROPERTY(BlueprintReadOnly)
 	double GameEndTime;
 
@@ -28,7 +35,7 @@ public:
 	TSubclassOf<class UGameOver> GameOverHUDClass;
 
 	UPROPERTY()
-	class UGameOver* GameOverHUD;
+	UGameOver* GameOverHUD;
 
 	virtual void ResetLevel() override;
 
@@ -36,10 +43,12 @@ public:
 
 	void DeleteHUD();
 
-
 protected:
 	virtual void BeginPlay() override;
+
 };
+
+
 
 
 

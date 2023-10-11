@@ -58,7 +58,8 @@ AWGCharacter::AWGCharacter()
 	PlayerHUDClass = nullptr;
 	PlayerHUD = nullptr;
 
-	Health = MaxHealth; 
+	Health = MaxHealth;
+
 
 }
 
@@ -76,6 +77,7 @@ void AWGCharacter::BeginPlay()
 		}
 	}
 
+	// TODO: Transfer to gameMode
 	if(PlayerHUDClass)
 	{
 		APlayerController* FPC = UGameplayStatics::GetPlayerController(GetWorld(),0);
@@ -84,8 +86,7 @@ void AWGCharacter::BeginPlay()
 		check(PlayerHUD);
 		PlayerHUD->AddToPlayerScreen();
 
-		PlayerHUD->SetHealth(Health,MaxHealth);
-		
+		//PlayerHUD->OnHealthUpdated.AddDynamic(this,)		
 	}
 	
 }
@@ -97,25 +98,29 @@ void AWGCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	
 }
 
-void AWGCharacter::TakeDamage(float DamageAmount)
+
+float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	if (DamageAmount > 0 && Health > 0)
-	{
-		Health -= DamageAmount;
-		
-		
-		PlayerHUD->SetHealth(Health,MaxHealth);
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
+
+void AWGCharacter::ApplyDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	if (Health > 0 ){
+		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+		Health -= ActualDamage;
 		if (Health <= 0)
 		{
 			AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 			if(GameMode)
 			{
-				GameMode->GameOver(false);
+				UE_LOG(LogTemp,Warning,TEXT("Dead and GameMode ok"));
+				OnGameOver.Broadcast(false);
 			}
-			
 		}
+		OnHealthUpdated.Broadcast(Health,MaxHealth);
+
 	}
-	
 }
 
 //////////////////////////////////////////////////////////////////////////
