@@ -1,7 +1,13 @@
 # WG-test
-## WIP 
+## WIP ideas
 * Switching to Event Dispatchers
-* 
+* Refactor variable names for better understanding in BP
+* Try to refactor traps to components
+* More traps that could cause player damage
+* Traps that slows
+* Utility traps like speed buff
+* Upgrading UI (stamina?/timer on screen)
+
 
 ## Features
 [Triggers](Source/WG/trigger.cpp):
