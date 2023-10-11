@@ -353,22 +353,22 @@ void Atrap_platform::HidingTrap()
 void Atrap_platform::HideUnhide()
 {
 
-	UPrimitiveComponent* RootComponent = this->FindComponentByClass<UPrimitiveComponent>();
+	UPrimitiveComponent* PlatformRootComp = this->FindComponentByClass<UPrimitiveComponent>();
 	if (!this->IsHidden())
 	{
 		this->SetActorHiddenInGame(true);
 		
-		if (RootComponent)
+		if (PlatformRootComp)
 		{
-			RootComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+			PlatformRootComp->SetCollisionResponseToAllChannels(ECR_Ignore);
 		}
 	}
 	else
 	{
 		this->SetActorHiddenInGame(false);
-		if (RootComponent)
+		if (PlatformRootComp)
 		{
-			RootComponent->SetCollisionResponseToAllChannels(ECR_Block);
+			PlatformRootComp->SetCollisionResponseToAllChannels(ECR_Block);
 		}
 	}
 }
