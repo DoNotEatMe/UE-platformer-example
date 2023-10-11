@@ -11,7 +11,7 @@ ATriggerBox base
 [Traps](Source/WG/trap_platform.cpp):
 
 AActor base
-* Explosive Trap - Standing cause prepare state, after N time explode. Trap have cooldown
+* Explosive Trap - Standing activate prepare state, after N time explode and cause damage to all Actors on platform. Trap have cooldown
 * Wind Trap - Cause wind effect on Y axis. Changing direction every N seconds
 * MovingPlatform - Runs from point to point for N seconds. Setting destination with Collision Comp
 * Shake&Drop Trap - Shakes for N second and then drop down
