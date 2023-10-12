@@ -10,9 +10,11 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "gameHUD.h"
+#include "trap_platform.h"
 #include "WGGameMode.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/DamageEvents.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -88,6 +90,17 @@ void AWGCharacter::BeginPlay()
 
 		//PlayerHUD->OnHealthUpdated.AddDynamic(this,)		
 	}
+
+	TArray<AActor*> Actors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),Actors);
+	for (AActor* Actor : Actors)
+	{
+		Atrap_platform* Trap = Cast<Atrap_platform>(Actor);
+		if (Trap && Trap->ActorHasTag("Explode"))
+		{
+			Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
+		}
+	}
 	
 }
 
@@ -104,10 +117,12 @@ float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEve
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }
 
-void AWGCharacter::ApplyDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent)
 {
+
+	//DamageEvent DamageEvent; 	
 	if (Health > 0 ){
-		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, this->GetController(), Trap);
 		Health -= ActualDamage;
 		if (Health <= 0)
 		{

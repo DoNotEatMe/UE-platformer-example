@@ -1,13 +1,13 @@
 # WG-test
 ## WIP ideas
 * ~~Canonical UE TakeDamage switch~~ 11/10
-* Switching to Event Dispatchers
-* * ~~UI to dispatcher~~ 10/11
-* * ~~GameOver + Trigger to Dispatcher~~
-* * Damage Dispatcher?
+* ~~Switching to Event Dispatchers~~
+* * ~~UI to dispatcher~~ 11/10
+* * ~~GameOver + Trigger to Dispatcher~~ 11/10
+* * ~~Trap Damage Dispatcher~~ 11/11
 * Trigger to Component
 * Transfer HUD from character to GameMode
-* Refactor to AOE Damage instead GetAllOverlappingActors() in ExplosiveTrap
+* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
 * Ad Damage Types and for traps. Wind dot / poison dot 
 * Dynamic Material
 * Refactor variable names for better understanding in BP

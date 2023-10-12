@@ -84,7 +84,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	UFUNCTION()
-	void ApplyDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
+	void ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent);
 
 
 	

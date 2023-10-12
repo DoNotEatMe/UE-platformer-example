@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/DamageEvents.h"
 #include "trap_platform.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FDamageExplosiveTrapDelegate, float, DamageDealt, AActor*, Trap, FDamageEvent&, DamageEvent);
 
 UCLASS()
 class WG_API Atrap_platform : public AActor
@@ -58,8 +61,6 @@ private:
 	float MaterialResetTime = 0.3f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode")
 	float ExplodeTime = 1.f;
-	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode")
-	float ExplosionDamage = 10.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Explode") 
 	float TrapDamage = 50.f;
 	
@@ -148,6 +149,8 @@ public:
 	UFUNCTION()
 	void HideUnhide();
 
+	UPROPERTY()
+	FDamageExplosiveTrapDelegate OnApplyDamage;
 	
 	
 

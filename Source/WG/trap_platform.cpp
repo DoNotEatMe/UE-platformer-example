@@ -11,7 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Math/UnrealMathUtility.h"
-#include "Engine/DamageEvents.h"
+
 
 // Sets default values
 Atrap_platform::Atrap_platform()
@@ -159,8 +159,8 @@ void Atrap_platform::Explode(AActor* OtherActor)
 			AWGCharacter* Character = Cast<AWGCharacter>(Actor);
 			if (Character)
 			{
-				FDamageEvent DamageEvent; 				
-				Character->ApplyDamage(50.0f, DamageEvent, Character->GetController(), this);
+				FDamageEvent DamageEvent;
+				OnApplyDamage.Broadcast(TrapDamage, this,DamageEvent);
 			}
 	}
 	
