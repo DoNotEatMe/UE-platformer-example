@@ -16,6 +16,23 @@ public:
 	// Sets default values for this component's properties
 	UTrapBaseComponent();
 	virtual void ResetTimer() {}
+
+	UPROPERTY()
+	class ATrapBase* OwnerActor;
+	
+	UPROPERTY()
+	UMaterialInstanceDynamic* DynamicMaterial;
+
+	UPROPERTY()
+	class UBoxComponent* InteractCollision;
+	
+	UFUNCTION()
+	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
+
+	UFUNCTION()
+	virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

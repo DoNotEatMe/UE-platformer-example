@@ -3,7 +3,7 @@
 
 #include "TrapBase.h"
 #include "Components/BoxComponent.h"
-#include "WGCharacter.h"
+#include "WG/WGCharacter.h"
 
 
 
@@ -15,10 +15,6 @@ UTrap_Explosive_comp::UTrap_Explosive_comp()
 
 	// init
 	bIsTrapCooldown = false;
-
-	OwnerActor = nullptr;
-	DynamicMaterial = nullptr;
-	InteractCollision = nullptr;
 	
 }
 
@@ -26,39 +22,9 @@ void UTrap_Explosive_comp::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Prepare Owner
-	AActor* Actor = GetOwner();
-	if (Actor)
-	{
-		OwnerActor = Cast<ATrapBase>(Actor);
-		if (!OwnerActor)
-		{
-			UE_LOG(LogTemp,Error,TEXT("Trap_Explosive_comp %s cannot get OwnerActor"), *this->GetOwner()->GetName());
-		}
-	}
-	
-
-	// Prepare material
-	UStaticMeshComponent* Platform = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
-	if (Platform)
-	{
-		DynamicMaterial = UMaterialInstanceDynamic::Create(Platform->GetMaterial(0), this);
-	}
-
-
-	// Prepare Collision
-	InteractCollision = Cast<UBoxComponent>(GetOwner()->GetDefaultSubobjectByName("Interact Collision"));
-	if (InteractCollision){
-	InteractCollision->OnComponentBeginOverlap.AddDynamic(this, &UTrap_Explosive_comp::OnOverlapBegin);
-	} else
-	{
-		UE_LOG(LogTemp,Error,TEXT("InteractCollision lost at %s --Trap_Explosive_comp"), *this->GetOwner()->GetName());
-	}
-	UE_LOG(LogTemp,Warning,TEXT("Explosive Trap here"));
 }
 
 
-// Called every frame
 void UTrap_Explosive_comp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -67,11 +33,11 @@ void UTrap_Explosive_comp::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTrap_Explosive_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	Super::OnOverlapBegin(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (OverlappedComp == InteractCollision)
 	{
 		ExplodePrepare(OtherActor);
 		SetTrapCooldown(OtherActor);
-		UE_LOG(LogTemp,Warning,TEXT("Overlapped %s"), *GetOwner()->GetName());
 	}
 	
 }
@@ -79,6 +45,7 @@ void UTrap_Explosive_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 void UTrap_Explosive_comp::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	Super::OnOverlapEnd(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
 }
 
 

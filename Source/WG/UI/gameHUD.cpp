@@ -1,5 +1,5 @@
 #include "gameHUD.h"
-#include "WGCharacter.h"
+#include "WG/WGCharacter.h"
 #include "Components/ProgressBar.h"
 #include "Kismet/GameplayStatics.h"
 

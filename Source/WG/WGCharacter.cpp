@@ -9,15 +9,16 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "gameHUD.h"
-#include "TrapBase.h"
-#include "Trap_Explosive_comp.h"
+#include "WG/UI/gameHUD.h"
+#include "WG/Traps/TrapBase.h"
+#include "WG/Traps/Trap_Explosive_comp.h"
 #include "trap_platform.h"
 #include "WGGameMode.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
 
+// TODO: Cleanup
 
 //////////////////////////////////////////////////////////////////////////
 // AWGCharacter

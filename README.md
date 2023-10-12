@@ -15,8 +15,8 @@
 * Refactor variable names for better understanding in BP
 * Try to refactor traps to components
 * * ~~Explosive Trap to Trap_Explosive_comp~~ 12/10
-* * Wind Trap to component <- **Now i'm here**
-* * Moving Trap to component
+* * ~~Wind Trap to component~~ 12/10
+* * Moving Trap to component <- **Refactoring now**
 * * Shake Trap to Component
 * * Hiding Trap to component
 * * Jump pad to component
@@ -48,9 +48,11 @@ AActor base
 * Jump Pad - Make character to jump higher
 
 ## Refactoring
-AActor -> [ATrapBase](Source/WG/TrapBase.cpp):
-* [Explosive Trap Component](Source/WG/Trap_Explosive_comp.cpp) - _UActorComponent::UTrapBaseComponent::UTrap_Explosive_comp_ - Explosive trap realization decomposition  
-
+* AActor -> [ATrapBase](Source/WG/Traps/TrapBase.cpp)
+* UActorComponent -> [UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp)
+* _UActorComponent::UTrapBaseComponent::_[Explosive Trap Component](Source/WG/Traps/Trap_Explosive_comp.cpp) - Explosive trap decomposition  
+* _UActorComponent::UTrapBaseComponent::_[Wind Trap Component](Source/WG/Traps/Trap_Wind_comp.cpp) - Wind trap decomposition
+* 
 ***
 
 ### Other features:

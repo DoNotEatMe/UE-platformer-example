@@ -5,9 +5,9 @@
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
-#include "GameOver.h"
+#include "WG/UI/GameOver.h"
 #include "Blueprint/UserWidget.h"
-#include "gameHUD.h"
+#include "WG/UI/gameHUD.h"
 #include "WGCharacter.h"
 #include "trigger.h"
 

@@ -3,9 +3,9 @@
 
 #include "GameOver.h"
 
-#include "TrapBase.h"
-#include "trap_platform.h"
-#include "WGGameMode.h"
+#include "WG/Traps/TrapBase.h"
+#include "WG/trap_platform.h"
+#include "WG/WGGameMode.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerController.h"

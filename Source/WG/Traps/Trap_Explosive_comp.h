@@ -23,15 +23,6 @@ public:
 	UTrap_Explosive_comp();
 
 	UPROPERTY()
-	class ATrapBase* OwnerActor;
-	
-	UPROPERTY()
-	UMaterialInstanceDynamic* DynamicMaterial;
-
-	UPROPERTY()
-	class UBoxComponent* InteractCollision;
-
-	UPROPERTY()
 	FDamageExplosiveTrapCompDelegate OnApplyDamage;
 
 protected:
@@ -45,12 +36,12 @@ public:
 	
 private:
 
-	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
+	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	
 
-	UFUNCTION()
-	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
+	virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	
 
