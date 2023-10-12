@@ -17,8 +17,8 @@
 * * ~~Explosive Trap to Trap_Explosive_comp~~ 12/10
 * * ~~Wind Trap to component~~ 12/10
 * * ~~Moving Trap to component~~ 12/10
-* * Shake Trap to Component <- **Refactoring now**
-* * Hiding Trap to component
+* * ~~Shake Trap to Component~~ 12/10
+* * Hiding Trap to component <- **Refactoring now**
 * * Jump pad to component
 * * Clean up code from old realization
 * More traps that could cause player damage
