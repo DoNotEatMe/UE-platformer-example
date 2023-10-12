@@ -1,5 +1,7 @@
 # WG-test
-## WIP ideas
+
+# -!REFACTORING IN PROCESS WHILE YOU ARE READING THIS!-
+## WIP ideas 
 * ~~Canonical UE TakeDamage switch~~ 11/10
 * ~~Switching to Event Dispatchers~~
 * * ~~UI to dispatcher~~ 11/10
@@ -12,6 +14,13 @@
 * Dynamic Material
 * Refactor variable names for better understanding in BP
 * Try to refactor traps to components
+* * ~~Explosive Trap to Trap_Explosive_comp~~ 11/10
+* * Wind Trap to component <- **Now i'm here**
+* * Moving Trap to component
+* * Shake Trap to Component
+* * Hiding Trap to component
+* * Jump pad to component
+* * Clean up code from old realization
 * More traps that could cause player damage
 * Traps that slows
 * Utility traps like speed buff
@@ -37,6 +46,10 @@ AActor base
 * Shake&Drop Trap - Shakes for N second and then drop down
 * Hiding Trap - Hide and appear in N rate
 * Jump Pad - Make character to jump higher
+
+## Refactoring
+AActor -> [ATrapBase](Source/WG/TrapBase.cpp):
+* [Explosive Trap Component](Source/WG/Trap_Explosive_comp.cpp) - _UActorComponent::UTrapBaseComponent::UTrap_Explosive_comp_ - Explosive trap realization decomposition  
 
 ***
 

@@ -10,6 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "gameHUD.h"
+#include "TrapBase.h"
+#include "Trap_Explosive_comp.h"
 #include "trap_platform.h"
 #include "WGGameMode.h"
 #include "Blueprint/UserWidget.h"
@@ -91,6 +93,9 @@ void AWGCharacter::BeginPlay()
 		//PlayerHUD->OnHealthUpdated.AddDynamic(this,)		
 	}
 
+
+	//Old
+	
 	TArray<AActor*> Actors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),Actors);
 	for (AActor* Actor : Actors)
@@ -99,6 +104,27 @@ void AWGCharacter::BeginPlay()
 		if (Trap && Trap->ActorHasTag("Explode"))
 		{
 			Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
+		}
+	}
+
+	// Refactored
+	TArray<AActor*> TrapActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapActors);
+	for (AActor* Actor : TrapActors)
+	{
+		ATrapBase* TrapBase = Cast<ATrapBase>(Actor);
+		if (TrapBase)
+		{
+			UTrap_Explosive_comp* Trap = Cast<UTrap_Explosive_comp>(TrapBase->GetComponentByClass(UTrap_Explosive_comp::StaticClass()));
+			if (Trap)
+			{
+				Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
+			}
+			else
+			{
+				UE_LOG(LogTemp,Error,TEXT("Cannot get Trap to OnApplyDamage.AddDynamic in Character"));
+			}
+			
 		}
 	}
 	

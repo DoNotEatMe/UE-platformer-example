@@ -3,6 +3,7 @@
 
 #include "GameOver.h"
 
+#include "TrapBase.h"
 #include "trap_platform.h"
 #include "WGGameMode.h"
 #include "Components/TextBlock.h"
@@ -21,6 +22,7 @@ void UGameOver::RestartLevel()
 		PlayerController->bEnableClickEvents = false;
 		PlayerController->SetInputMode(FInputModeGameOnly());
 
+		//old
 		TArray<AActor*> Actors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),Actors);
 		for (AActor* Actor: Actors)
@@ -29,6 +31,20 @@ void UGameOver::RestartLevel()
 			if (Trap)
 			{
 				Trap->ResetAllTimers();
+				
+			}
+		}
+
+		// Refactored
+		TArray<AActor*> TrapBases;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapBases);
+		for (AActor* Traps: TrapBases)
+		{
+			ATrapBase* Trap = Cast<ATrapBase>(Traps);
+			if (Trap)
+			{
+				Trap->ResetTimers();
+				
 			}
 		}
 		UGameplayStatics::OpenLevel(GetWorld(), "ThirdPersonMap", false);
