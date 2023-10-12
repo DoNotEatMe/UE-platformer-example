@@ -18,13 +18,16 @@
 * * ~~Wind Trap to component~~ 12/10
 * * ~~Moving Trap to component~~ 12/10
 * * ~~Shake Trap to Component~~ 12/10
-* * ~~Hiding Trap to component~~ 
-* * Jump pad to component <- **Refactoring now**
-* * Clean up code from old realization
+* * ~~Hiding Trap to component~~ 12/10
+* * ~~Jump pad to component~~ 12/10
+* * Clean up code from old realization <- **Refactoring now**
 * More traps that could cause player damage
 * Traps that slows
 * Utility traps like speed buff
-* Upgrading UI (stamina?/timer on screen)
+* Decompose HP
+* Dash implementation
+* Stamina implementation
+* Power charges pickup implimentation
 
 ***
 
