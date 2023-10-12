@@ -18,8 +18,8 @@
 * * ~~Wind Trap to component~~ 12/10
 * * ~~Moving Trap to component~~ 12/10
 * * ~~Shake Trap to Component~~ 12/10
-* * Hiding Trap to component <- **Refactoring now**
-* * Jump pad to component
+* * ~~Hiding Trap to component~~ 
+* * Jump pad to component <- **Refactoring now**
 * * Clean up code from old realization
 * More traps that could cause player damage
 * Traps that slows
@@ -52,7 +52,8 @@ AActor base
 * UActorComponent -> [UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp)
 * _UActorComponent::UTrapBaseComponent::_[Explosive Trap Component](Source/WG/Traps/Trap_Explosive_comp.cpp) - Explosive trap decomposition  
 * _UActorComponent::UTrapBaseComponent::_[Wind Trap Component](Source/WG/Traps/Trap_Wind_comp.cpp) - Wind trap decomposition
-* _UActorComponent::UTrapBaseComponent::_[Moving Platform Component](Source/WG/Traps/Trap_MovingPlatform_comp.cpp) - Moving Trap decomposition]
+* _UActorComponent::UTrapBaseComponent::_[Moving Platform Component](Source/WG/Traps/Trap_MovingPlatform_comp.cpp) - Moving Trap decomposition
+* _UActorComponent::UTrapBaseComponent::_[Hiding Trap Component](Source/WG/Traps/Trap_Hiding_comp.cpp) - Hiding trap decomposition
 * 
 ***
 

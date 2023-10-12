@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "trap_platform.h"
 #include "WGCharacter.h"
+#include "Traps/Trap_Hiding_comp.h"
 #include "WG/Traps/TrapBase.h"
 #include "WG/Traps/Trap_MovingPlatform_comp.h"
 
@@ -72,10 +73,18 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
                 
                 for (AActor* TrapActor : TrapActors)
                 {
-                    UTrap_MovingPlatform_comp* Trap = Cast<UTrap_MovingPlatform_comp>(TrapActor->GetComponentByClass(UTrap_MovingPlatform_comp::StaticClass()));
-                    if (Trap)
+                    UTrap_MovingPlatform_comp* MovingTrap = Cast<UTrap_MovingPlatform_comp>(TrapActor->GetComponentByClass(UTrap_MovingPlatform_comp::StaticClass()));
+                    if (MovingTrap)
                     {
-                      Trap->MovingPlatform();
+                      MovingTrap->MovingPlatform();
+                        continue;
+                    }
+
+                    UTrap_Hiding_comp* HidingTrap = Cast<UTrap_Hiding_comp>(TrapActor->GetComponentByClass(UTrap_Hiding_comp::StaticClass()));
+                    if (HidingTrap)
+                    {
+                        HidingTrap->HidingTrap();
+                        continue;
                     }
                 }
                 
