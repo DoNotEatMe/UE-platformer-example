@@ -1,5 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -59,7 +57,6 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	/** Returns CameraBoom subobject **/
@@ -71,6 +68,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UgameHUD> PlayerHUDClass;
 
+	//TODO: delete on transfer
 	UPROPERTY()
 	class UgameHUD* PlayerHUD;
 
@@ -80,13 +78,10 @@ public:
 	float Health;
 
 
-	UFUNCTION()
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	UFUNCTION()
 	void ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent);
-
-
 	
 	
 	UPROPERTY(BlueprintAssignable)
@@ -94,8 +89,5 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FGameOverFromCharacterDelegate OnGameOver;
-	
-	
-	
 };
 

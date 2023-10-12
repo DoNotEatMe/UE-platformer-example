@@ -1,16 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "GameOver.h"
-
 #include "WG/Traps/TrapBase.h"
-#include "WG/trap_platform.h"
 #include "WG/WGGameMode.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
-#include "GameFramework/PlayerController.h"
-
-
 
 void UGameOver::RestartLevel()
 {
@@ -22,20 +14,6 @@ void UGameOver::RestartLevel()
 		PlayerController->bEnableClickEvents = false;
 		PlayerController->SetInputMode(FInputModeGameOnly());
 
-		//old
-		TArray<AActor*> Actors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),Actors);
-		for (AActor* Actor: Actors)
-		{
-			Atrap_platform* Trap = Cast<Atrap_platform>(Actor);
-			if (Trap)
-			{
-				Trap->ResetAllTimers();
-				
-			}
-		}
-
-		// Refactored
 		TArray<AActor*> TrapBases;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapBases);
 		for (AActor* Traps: TrapBases)
@@ -44,18 +22,14 @@ void UGameOver::RestartLevel()
 			if (Trap)
 			{
 				Trap->ResetTimers();
-				
 			}
 		}
 		UGameplayStatics::OpenLevel(GetWorld(), "ThirdPersonMap", false);
-		
 	}
 	else
 	{
 		UE_LOG(LogTemp,Error,TEXT("RestartLevel() in GameOver.cpp error finding playercontroller/gamemode "));
 	}
-	
-	
 }
 
 
@@ -63,7 +37,6 @@ void UGameOver::SetGameDuration(double GameStarTime, double GameEndtime)
 {
 	double DurationCount = GameEndtime - GameStarTime;
 	Duration->SetText(FText::Format(FText::FromString("{0}{1}"),FText::FromString(TEXT("Your Run time is: ")),FText::AsNumber(DurationCount)));
-	
 }
 
 void UGameOver::SetWinLose(bool bWin)

@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Trap_MovingPlatform_comp.h"
 #include "TrapBase.h"
 #include "Components/BoxComponent.h"
@@ -12,20 +9,15 @@ UTrap_MovingPlatform_comp::UTrap_MovingPlatform_comp()
 void UTrap_MovingPlatform_comp::BeginPlay()
 {
 	Super::BeginPlay();
-	
-
-	
 }
 
-void UTrap_MovingPlatform_comp::TickComponent(float DeltaTime, ELevelTick TickType,
-	FActorComponentTickFunction* ThisTickFunction)
+void UTrap_MovingPlatform_comp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
 void UTrap_MovingPlatform_comp::MovingPlatform()
 {
-	
 	bEnd = false;
 	StartPoint = OwnerActor->GetActorLocation();
 	EndPoint = InteractCollision->GetComponentLocation();
@@ -36,7 +28,6 @@ void UTrap_MovingPlatform_comp::MovingPlatform()
 
 void UTrap_MovingPlatform_comp::MoveObject()
 {
-	
 	FVector CurrentLocation;
 	FVector TargetLocation;
 	
@@ -59,7 +50,6 @@ void UTrap_MovingPlatform_comp::MoveObject()
 			bEnd = !bEnd;
 		}
 	}
-	
 	OwnerActor->SetActorLocation(TargetLocation);
 }
 

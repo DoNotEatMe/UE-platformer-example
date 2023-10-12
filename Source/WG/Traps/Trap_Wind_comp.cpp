@@ -1,21 +1,15 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Trap_Wind_comp.h"
-
 #include "TrapBase.h"
 #include "Components/BoxComponent.h"
 
 UTrap_Wind_comp::UTrap_Wind_comp()
 {
-	
 }
 
 
 void UTrap_Wind_comp::BeginPlay()
 {
 	Super::BeginPlay();
-
 	InteractCollision->SetBoxExtent(FVector(50.f,50.f,1500.f));
 	InteractCollision->SetRelativeLocation(FVector(0.f, 0.f,1550.f));
 }
@@ -35,8 +29,7 @@ void UTrap_Wind_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor
 	}
 }
 
-void UTrap_Wind_comp::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void UTrap_Wind_comp::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	Super::OnOverlapEnd(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
 	GetWorld()->GetTimerManager().ClearTimer(WindTimerHandle);
@@ -58,7 +51,6 @@ void UTrap_Wind_comp::Wind(AActor* OtherActor)
 
 void UTrap_Wind_comp::WindApply(AActor* OtherActor)
 {
-	
 	float BetterRandomDirection = 0.f;
 	if (bWindRight)
 	{
@@ -70,9 +62,8 @@ void UTrap_Wind_comp::WindApply(AActor* OtherActor)
 	}
 	
 	bWindRight = !bWindRight;
-	
 	FVector WindDirection = FVector(0.f, BetterRandomDirection, 0.f);
-	
+
 	auto WindChangeLambda = [this, OtherActor, WindDirection]()
 	{
 		WindChange(OtherActor,WindDirection);
@@ -85,9 +76,6 @@ void UTrap_Wind_comp::WindApply(AActor* OtherActor)
 void UTrap_Wind_comp::WindChange(AActor* OtherActor, FVector WindDirection)
 {
 	FVector TargetLocation = OtherActor->GetActorLocation() + WindDirection;
-
-	// Not sure i need VInterpTo. May be just velocity*deltatime?
-	// But as player, filling wind better. 
 	FVector newLocation = FMath::VInterpTo(OtherActor->GetActorLocation(), TargetLocation, GetWorld()->GetDeltaSeconds(), 1);
 	OtherActor->SetActorLocation(newLocation);
 }

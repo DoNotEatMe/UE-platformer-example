@@ -4,7 +4,6 @@
 #include "Engine/TriggerBox.h"
 #include "trigger.generated.h"
 
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGameStartTriggerDelegate, double, GameStartTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGameOverTriggerDelegate, bool, bWinLose);
 
@@ -15,9 +14,7 @@ class WG_API Atrigger : public ATriggerBox
 
 public:
 	Atrigger();
-
-	virtual void BeginPlay() override;
-
+	
 	UFUNCTION()
 	void OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor);
 	
@@ -26,9 +23,9 @@ public:
 
 	UPROPERTY(BlueprintCallable)
 	FGameOverTriggerDelegate OnGameOver;
-
 	UPROPERTY(BlueprintCallable)
 	FGameStartTriggerDelegate OnStart;
-private:
 
+protected:
+	virtual void BeginPlay() override;
 };

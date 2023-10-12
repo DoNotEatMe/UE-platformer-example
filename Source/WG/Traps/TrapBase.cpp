@@ -1,18 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "TrapBase.h"
-
 #include "Trap_Explosive_comp.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 
-// Sets default values
 ATrapBase::ATrapBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 
 	Platform = CreateDefaultSubobject<UStaticMeshComponent>("Platform");
 	RootComponent = Platform;
@@ -27,31 +20,19 @@ ATrapBase::ATrapBase()
 	CollisionComp->SetupAttachment(Platform);
 	CollisionComp->SetRelativeLocation(FVector(0.0f,0.0f,70.0f));
 	CollisionComp->SetBoxExtent(FVector(50.0f,50.0f,20.0f));
-
-	
-	
 }
 
-
-
-// Called when the game starts or when spawned
 void ATrapBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 	DynamicMaterial = UMaterialInstanceDynamic::Create(Platform->GetMaterial(0),this);
 	Platform->SetMaterial(0,DynamicMaterial);
-	
 	DynamicMaterial->SetVectorParameterValue(TEXT("Color"), FLinearColor::Gray);
-	
-	
 }
 
-// Called every frame
 void ATrapBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ATrapBase::ChangeMaterialColor(FLinearColor color)

@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Trap_Hiding_comp.h"
 #include "TrapBase.h"
 
@@ -13,12 +10,10 @@ void UTrap_Hiding_comp::BeginPlay()
 	Super::BeginPlay();
 }
 
-void UTrap_Hiding_comp::TickComponent(float DeltaTime, ELevelTick TickType,
-	FActorComponentTickFunction* ThisTickFunction)
+void UTrap_Hiding_comp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
-
 
 void UTrap_Hiding_comp::HidingTrap()
 {
@@ -27,8 +22,8 @@ void UTrap_Hiding_comp::HidingTrap()
 
 void UTrap_Hiding_comp::HideUnhide()
 {
-
 	UPrimitiveComponent* PlatformRootComp = OwnerActor->FindComponentByClass<UPrimitiveComponent>();
+
 	if (!OwnerActor->IsHidden())
 	{
 		OwnerActor->SetActorHiddenInGame(true);

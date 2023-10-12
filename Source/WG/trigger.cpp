@@ -1,18 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "trigger.h"
-
-#include "WGGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h" 
-#include "GameFramework/Character.h"
-#include "trap_platform.h"
 #include "WGCharacter.h"
 #include "Traps/Trap_Hiding_comp.h"
 #include "WG/Traps/TrapBase.h"
 #include "WG/Traps/Trap_MovingPlatform_comp.h"
-
 
 Atrigger::Atrigger()
 {
@@ -47,27 +39,6 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
             
             if (!bTriggerActivated)
             {
-                // Old
-                TArray<AActor*> TrapArray;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),TrapArray);
-                for (AActor* Actor : TrapArray)
-                {
-                    Atrap_platform* TrapPlatform = Cast<Atrap_platform>(Actor);
-                    if (TrapPlatform)
-                    {
-                        if (TrapPlatform->ActorHasTag("Moving"))
-                        {
-                            TrapPlatform->MovingPlatform();
-                        }
-                        if (TrapPlatform->ActorHasTag("Hiding"))
-                        {
-                            TrapPlatform->HidingTrap();
-                        }
-                        
-                    }
-                }
-
-                // Refactored
                 TArray<AActor*> TrapActors;
                 UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(), TrapActors);
                 

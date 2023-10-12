@@ -12,9 +12,7 @@
 #include "WG/UI/gameHUD.h"
 #include "WG/Traps/TrapBase.h"
 #include "WG/Traps/Trap_Explosive_comp.h"
-#include "trap_platform.h"
 #include "WGGameMode.h"
-#include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
 
@@ -94,21 +92,7 @@ void AWGCharacter::BeginPlay()
 		//PlayerHUD->OnHealthUpdated.AddDynamic(this,)		
 	}
 
-
-	//Old
-	
-	TArray<AActor*> Actors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),Actors);
-	for (AActor* Actor : Actors)
-	{
-		Atrap_platform* Trap = Cast<Atrap_platform>(Actor);
-		if (Trap && Trap->ActorHasTag("Explode"))
-		{
-			Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
-		}
-	}
-
-	// Refactored
+	//Damage Dispatcher
 	TArray<AActor*> TrapActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapActors);
 	for (AActor* Actor : TrapActors)
@@ -126,14 +110,6 @@ void AWGCharacter::BeginPlay()
 	
 }
 
-void AWGCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
-{
-	
-	Super::EndPlay(EndPlayReason);
-	
-}
-
-
 float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
@@ -141,8 +117,6 @@ float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEve
 
 void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent)
 {
-
-	//DamageEvent DamageEvent; 	
 	if (Health > 0 ){
 		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, this->GetController(), Trap);
 		Health -= ActualDamage;
@@ -156,7 +130,6 @@ void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& D
 			}
 		}
 		OnHealthUpdated.Broadcast(Health,MaxHealth);
-
 	}
 }
 

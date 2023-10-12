@@ -14,7 +14,6 @@ void UgameHUD::NativeConstruct()
 		Player->OnHealthUpdated.AddDynamic(this,&UgameHUD::HandleHealthUpdate);
 		
 	}
-	
 }
 
 void UgameHUD::HandleHealthUpdate(float UpdHealth,float UpdMaxHealth)

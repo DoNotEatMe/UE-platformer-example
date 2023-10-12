@@ -1,7 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "WGGameMode.h"
-
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
@@ -13,8 +10,6 @@
 
 AWGGameMode::AWGGameMode()
 {
-	
-	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
@@ -23,24 +18,19 @@ AWGGameMode::AWGGameMode()
 
 	GameOverHUDClass = nullptr;
 	GameOverHUD = nullptr;
-
-	
-
 }
 
 
 void AWGGameMode::GameOver(bool bWonGame)
 {
-
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
 	if (PlayerController)
 	{
 		PlayerController->bShowMouseCursor = true;
 		PlayerController->bEnableClickEvents = true;
-
 		PlayerController->SetInputMode(FInputModeUIOnly());
-
 		GameEndTime = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+		
 		if (GameOverHUDClass)
 		{
 			GameOverHUD = CreateWidget<UGameOver>(GetWorld(),GameOverHUDClass);
@@ -51,13 +41,8 @@ void AWGGameMode::GameOver(bool bWonGame)
 			
 			GameOverHUD->SetGameDuration(GameStartTime,GameEndTime);
 			GameOverHUD->SetWinLose(bWonGame);
-
 		}
-		
 	}
-
-	
-	
 }
 
 void AWGGameMode::ResetLevel()
@@ -79,8 +64,6 @@ void AWGGameMode::DeleteHUD()
 void AWGGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
-
 	
 	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (Controller)
@@ -90,7 +73,6 @@ void AWGGameMode::BeginPlay()
 		{
 			Player->OnGameOver.AddDynamic(this,&AWGGameMode::GameOver);
 		}
-		
 	}
 
 	TArray<AActor*> Triggers;
@@ -106,12 +88,7 @@ void AWGGameMode::BeginPlay()
 		{
 			Trigger->OnStart.AddDynamic(this,&AWGGameMode::SetGameStartTime);
 		}
-		
 	}
-	
-	
-
-	
 }
 
 
