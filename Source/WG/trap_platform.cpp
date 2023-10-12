@@ -71,7 +71,7 @@ void Atrap_platform::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 	}
 	if (this->ActorHasTag("Shake"))
 	{
-		ShakePrepare();
+		
 		return;
 	}
 	if (this->ActorHasTag("Jump"))

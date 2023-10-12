@@ -33,7 +33,6 @@ void UTrap_Explosive_comp::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTrap_Explosive_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	Super::OnOverlapBegin(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (OverlappedComp == InteractCollision)
 	{
 		ExplodePrepare(OtherActor);

@@ -29,8 +29,6 @@ void UTrap_Wind_comp::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 void UTrap_Wind_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	Super::OnOverlapBegin(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
-
 	if (OverlappedComp == InteractCollision)
 	{
 		Wind(OtherActor);
