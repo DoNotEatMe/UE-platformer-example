@@ -6,7 +6,7 @@
 * ~~Switching to Event Dispatchers~~
 * * ~~UI to dispatcher~~ 11/10
 * * ~~GameOver + Trigger to Dispatcher~~ 11/10
-* * ~~Trap Damage Dispatcher~~ 11/11
+* * ~~Trap Damage Dispatcher~~ 12/11
 * Trigger to Component
 * Transfer HUD from character to GameMode
 * Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
@@ -14,7 +14,7 @@
 * Dynamic Material
 * Refactor variable names for better understanding in BP
 * Try to refactor traps to components
-* * ~~Explosive Trap to Trap_Explosive_comp~~ 11/10
+* * ~~Explosive Trap to Trap_Explosive_comp~~ 12/10
 * * Wind Trap to component <- **Now i'm here**
 * * Moving Trap to component
 * * Shake Trap to Component
@@ -28,7 +28,7 @@
 
 ***
 
-## Features on Oct 10.10
+## Features on Oct 12.10
 [Triggers](Source/WG/trigger.cpp):
 
 ATriggerBox base
