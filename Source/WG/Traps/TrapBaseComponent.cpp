@@ -30,7 +30,7 @@ void UTrapBaseComponent::BeginPlay()
 		OwnerActor = Cast<ATrapBase>(Actor);
 		if (!OwnerActor)
 		{
-			UE_LOG(LogTemp,Error,TEXT("Trap_Explosive_comp %s cannot get OwnerActor"), *this->GetOwner()->GetName());
+			UE_LOG(LogTemp,Error,TEXT(" %s cannot get OwnerActor"), *this->GetOwner()->GetName());
 		}
 	}
 	

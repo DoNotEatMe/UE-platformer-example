@@ -120,12 +120,7 @@ void AWGCharacter::BeginPlay()
 			if (Trap)
 			{
 				Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
-			}
-			else
-			{
-				UE_LOG(LogTemp,Error,TEXT("Cannot get Trap to OnApplyDamage.AddDynamic in Character"));
-			}
-			
+			}			
 		}
 	}
 	

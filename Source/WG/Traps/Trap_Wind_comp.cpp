@@ -17,7 +17,7 @@ void UTrap_Wind_comp::BeginPlay()
 	Super::BeginPlay();
 
 	InteractCollision->SetBoxExtent(FVector(50.f,50.f,1500.f));
-	InteractCollision->SetRelativeLocation(FVector(50.f, 50.f,1600.f));
+	InteractCollision->SetRelativeLocation(FVector(0.f, 0.f,1550.f));
 }
 
 

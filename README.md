@@ -6,18 +6,18 @@
 * ~~Switching to Event Dispatchers~~
 * * ~~UI to dispatcher~~ 11/10
 * * ~~GameOver + Trigger to Dispatcher~~ 11/10
-* * ~~Trap Damage Dispatcher~~ 12/11
+* * ~~Trap Damage Dispatcher~~ 12/10
 * Trigger to Component
 * Transfer HUD from character to GameMode
 * Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
 * Ad Damage Types and for traps. Wind dot / poison dot 
-* Dynamic Material
+* ~~Dynamic Material~~ 12/10
 * Refactor variable names for better understanding in BP
 * Try to refactor traps to components
 * * ~~Explosive Trap to Trap_Explosive_comp~~ 12/10
 * * ~~Wind Trap to component~~ 12/10
-* * Moving Trap to component <- **Refactoring now**
-* * Shake Trap to Component
+* * ~~Moving Trap to component~~ 12/10
+* * Shake Trap to Component <- **Refactoring now**
 * * Hiding Trap to component
 * * Jump pad to component
 * * Clean up code from old realization
@@ -52,6 +52,7 @@ AActor base
 * UActorComponent -> [UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp)
 * _UActorComponent::UTrapBaseComponent::_[Explosive Trap Component](Source/WG/Traps/Trap_Explosive_comp.cpp) - Explosive trap decomposition  
 * _UActorComponent::UTrapBaseComponent::_[Wind Trap Component](Source/WG/Traps/Trap_Wind_comp.cpp) - Wind trap decomposition
+* _UActorComponent::UTrapBaseComponent::_[Moving Platform Component](Source/WG/Traps/Trap_MovingPlatform_comp.cpp) - Moving Trap decomposition]
 * 
 ***
 

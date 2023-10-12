@@ -9,6 +9,8 @@
 #include "GameFramework/Character.h"
 #include "trap_platform.h"
 #include "WGCharacter.h"
+#include "WG/Traps/TrapBase.h"
+#include "WG/Traps/Trap_MovingPlatform_comp.h"
 
 
 Atrigger::Atrigger()
@@ -44,6 +46,7 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
             
             if (!bTriggerActivated)
             {
+                // Old
                 TArray<AActor*> TrapArray;
                 UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrap_platform::StaticClass(),TrapArray);
                 for (AActor* Actor : TrapArray)
@@ -60,6 +63,19 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
                             TrapPlatform->HidingTrap();
                         }
                         
+                    }
+                }
+
+                // Refactored
+                TArray<AActor*> TrapActors;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(), TrapActors);
+                
+                for (AActor* TrapActor : TrapActors)
+                {
+                    UTrap_MovingPlatform_comp* Trap = Cast<UTrap_MovingPlatform_comp>(TrapActor->GetComponentByClass(UTrap_MovingPlatform_comp::StaticClass()));
+                    if (Trap)
+                    {
+                      Trap->MovingPlatform();
                     }
                 }
                 

@@ -36,11 +36,16 @@ public:
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float WindPressure = 1.f;
 
-	//Minimum wind power is 30 for better effect
+	//Default range N -30 30 N to set power
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float MinYAxisPower = -100.f;
 	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
 	float MaxYAxisPower = 100.f;
+
+	//Minimum wind power
+	UPROPERTY(EditAnywhere, Category="Traps Settings|Wind")
+	float MinWindPower = 30.f;
+	
 
 	
 virtual void ResetTimer() override;

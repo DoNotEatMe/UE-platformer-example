@@ -16,7 +16,7 @@ ATrapBase::ATrapBase()
 
 	Platform = CreateDefaultSubobject<UStaticMeshComponent>("Platform");
 	RootComponent = Platform;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/LevelPrototyping/Meshes/SM_Cube_WMatExample.SM_Cube_WMatExample'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/LevelPrototyping/Meshes/Cube.Cube'"));
 	if (MeshAsset.Succeeded())
 	{
 		Platform->SetStaticMesh(MeshAsset.Object);
@@ -25,7 +25,7 @@ ATrapBase::ATrapBase()
 	
 	CollisionComp = CreateDefaultSubobject<UBoxComponent>("Interact Collision");
 	CollisionComp->SetupAttachment(Platform);
-	CollisionComp->SetRelativeLocation(FVector(50.0f,50.0f,120.0f));
+	CollisionComp->SetRelativeLocation(FVector(0.0f,0.0f,70.0f));
 	CollisionComp->SetBoxExtent(FVector(50.0f,50.0f,20.0f));
 
 	
@@ -39,7 +39,6 @@ void ATrapBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	UE_LOG(LogTemp,Error,TEXT("reset %s"),*Platform->GetMaterial(0)->GetName());
 	DynamicMaterial = UMaterialInstanceDynamic::Create(Platform->GetMaterial(0),this);
 	Platform->SetMaterial(0,DynamicMaterial);
 	
