@@ -6,8 +6,6 @@
 #include "TrapBaseComponent.h"
 #include "Trap_MovingPlatform_comp.generated.h"
 
-DECLARE_DYNAMIC_DELEGATE(FTriggerMovingPlatformHandle);
-
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class WG_API UTrap_MovingPlatform_comp : public UTrapBaseComponent
 {
@@ -37,9 +35,6 @@ public:
 	void MovingPlatform();
 	UFUNCTION()
 	void MoveObject();
-
-	UPROPERTY()
-	FTriggerMovingPlatformHandle OnStartTrigger;
 
 	virtual void ResetTimer() override;
 
