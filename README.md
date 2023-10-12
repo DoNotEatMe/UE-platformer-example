@@ -1,6 +1,7 @@
 # -!REFACTORING IN PROCESS WHILE YOU ARE READING THIS!-
 
 ## WIP ideas 
+* !Renew map with new Traps realization! (now broken)
 * Trigger to Component
 * Transfer HUD from character to GameMode
 * Decompose HP
