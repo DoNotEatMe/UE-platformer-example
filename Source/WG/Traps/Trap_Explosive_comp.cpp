@@ -24,8 +24,11 @@ void UTrap_Explosive_comp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 {
 	if (OverlappedComp == InteractCollision)
 	{
-		ExplodePrepare(OtherActor);
-		SetTrapCooldown(OtherActor);
+		if (bIsTrapCooldown == false)
+		{
+			ExplodePrepare(OtherActor);
+			SetTrapCooldown(OtherActor);
+		}
 	}
 }
 
