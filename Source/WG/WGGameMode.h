@@ -19,24 +19,22 @@ public:
 	double GameStartTime;
 
 	UFUNCTION()
-	void SetGameStartTime(double time)
-	{
-		GameStartTime = time;
-	};
+	void SetGameStartTime(double time);
 
 	UPROPERTY(BlueprintReadOnly)
 	double GameEndTime;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UgameHUD> PlayerHUDClass;
+	UPROPERTY()
+	UgameHUD* PlayerHUD;
+	
+
 	UPROPERTY(EditAnywhere, Category="UI")
 	TSubclassOf<class UGameOver> GameOverHUDClass;
-
 	UPROPERTY()
 	UGameOver* GameOverHUD;
-
-	virtual void ResetLevel() override;
-
-	virtual void RestartPlayerAtPlayerStart(AController* NewPlayer, AActor* StartSpot) override;
-
+	
 	void DeleteHUD();
 
 protected:

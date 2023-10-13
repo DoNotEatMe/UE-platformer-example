@@ -1,14 +1,12 @@
 #include "GameOver.h"
 #include "WG/Traps/TrapBase.h"
-#include "WG/WGGameMode.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 
 void UGameOver::RestartLevel()
 {
-	AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
-	if (PlayerController && GameMode)
+	if (PlayerController)
 	{
 		PlayerController->bShowMouseCursor = false;
 		PlayerController->bEnableClickEvents = false;
@@ -34,9 +32,8 @@ void UGameOver::RestartLevel()
 
 void UGameOver::PlaygroundStart()
 {
-	AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
-	if (PlayerController && GameMode)
+	if (PlayerController)
 	{
 		PlayerController->bShowMouseCursor = false;
 		PlayerController->bEnableClickEvents = false;

@@ -16,6 +16,9 @@ AWGGameMode::AWGGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
+	PlayerHUDClass = nullptr;
+	PlayerHUD = nullptr;
+	
 	GameOverHUDClass = nullptr;
 	GameOverHUD = nullptr;
 }
@@ -46,20 +49,14 @@ void AWGGameMode::GameOver(bool bWonGame)
 	}
 }
 
-void AWGGameMode::ResetLevel()
+void AWGGameMode::SetGameStartTime(double time)
 {
-	Super::ResetLevel();
-}
-
-void AWGGameMode::RestartPlayerAtPlayerStart(AController* NewPlayer, AActor* StartSpot)
-{
-	Super::RestartPlayerAtPlayerStart(NewPlayer, StartSpot);
+	GameStartTime = time;
 }
 
 void AWGGameMode::DeleteHUD()
 {
 	GameOverHUD->SetVisibility(ESlateVisibility::Hidden);
-
 }
 
 void AWGGameMode::BeginPlay()
@@ -90,6 +87,17 @@ void AWGGameMode::BeginPlay()
 			Trigger->OnStart.AddDynamic(this,&AWGGameMode::SetGameStartTime);
 		}
 	}
+
+	if(PlayerHUDClass)
+	{
+		APlayerController* FPC = UGameplayStatics::GetPlayerController(GetWorld(),0);
+		check(FPC);
+		PlayerHUD = CreateWidget<UgameHUD>(FPC, PlayerHUDClass);
+		check(PlayerHUD);
+		PlayerHUD->AddToPlayerScreen();
+
+	}
+	
 }
 
 

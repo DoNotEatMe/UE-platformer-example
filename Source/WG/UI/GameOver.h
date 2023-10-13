@@ -13,6 +13,7 @@ public:
 
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	class UTextBlock* WinLose;
+	
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	UTextBlock* Duration;
 

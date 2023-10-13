@@ -57,13 +57,7 @@ AWGCharacter::AWGCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
-	
-	PlayerHUDClass = nullptr;
-	PlayerHUD = nullptr;
-
 	Health = MaxHealth;
-
-
 }
 
 void AWGCharacter::BeginPlay()
@@ -80,19 +74,7 @@ void AWGCharacter::BeginPlay()
 		}
 	}
 
-	// TODO: Transfer to gameMode
-	if(PlayerHUDClass)
-	{
-		APlayerController* FPC = UGameplayStatics::GetPlayerController(GetWorld(),0);
-		check(FPC);
-		PlayerHUD = CreateWidget<UgameHUD>(FPC, PlayerHUDClass);
-		check(PlayerHUD);
-		PlayerHUD->AddToPlayerScreen();
-
-		//PlayerHUD->OnHealthUpdated.AddDynamic(this,)		
-	}
-
-	//Damage Dispatcher
+	// Damage Dispatcher
 	TArray<AActor*> TrapActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapActors);
 	for (AActor* Actor : TrapActors)

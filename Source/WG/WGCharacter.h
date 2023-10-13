@@ -63,14 +63,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
 	
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UgameHUD> PlayerHUDClass;
-
-	//TODO: delete on transfer
-	UPROPERTY()
-	class UgameHUD* PlayerHUD;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health")
 	float MaxHealth = 100.f;
