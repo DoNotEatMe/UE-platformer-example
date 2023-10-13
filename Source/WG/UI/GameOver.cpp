@@ -32,6 +32,33 @@ void UGameOver::RestartLevel()
 	}
 }
 
+void UGameOver::PlaygroundStart()
+{
+	AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
+	if (PlayerController && GameMode)
+	{
+		PlayerController->bShowMouseCursor = false;
+		PlayerController->bEnableClickEvents = false;
+		PlayerController->SetInputMode(FInputModeGameOnly());
+
+		TArray<AActor*> TrapBases;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapBases);
+		for (AActor* Traps: TrapBases)
+		{
+			ATrapBase* Trap = Cast<ATrapBase>(Traps);
+			if (Trap)
+			{
+				Trap->ResetTimers();
+			}
+		}
+		UGameplayStatics::OpenLevel(GetWorld(), "TrapPlayground", false);
+	}
+	else
+	{
+		UE_LOG(LogTemp,Error,TEXT("PlaygroundStart() in GameOver.cpp error finding playercontroller/gamemode "));
+	}
+}
 
 void UGameOver::SetGameDuration(double GameStarTime, double GameEndtime)
 {

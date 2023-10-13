@@ -37,6 +37,7 @@ void AWGGameMode::GameOver(bool bWonGame)
 			check(GameOverHUD);
 
 			UGameplayStatics::SetGamePaused(GetWorld(),true);
+			
 			GameOverHUD->AddToPlayerScreen();
 			
 			GameOverHUD->SetGameDuration(GameStartTime,GameEndTime);

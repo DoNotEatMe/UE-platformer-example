@@ -1,6 +1,8 @@
 # -!REFACTORING IN PROCESS WHILE YOU ARE READING THIS!-
 
-## Concept
+[Download demo](https://drive.google.com/drive/folders/1Zurdc2PK1pH2dLK6nL18UnD1zXxD9FhG?usp=sharing)
+
+## Prologue
 <details>
  <summary>Initial Task</summary>
 
@@ -42,12 +44,12 @@ So, what i learned:
 
 </details>
 
-***
+
 ## WIP ideas 
 
 * Trigger to Component
-* Transfer HUD from character to GameMode <- **now**
-* Decompose HP
+* Transfer HUD from character to GameMode 
+* Decompose HP to component
 * Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
 * Ad Damage Types and for traps. Wind dot / poison dot
 * More Traps
@@ -58,23 +60,21 @@ So, what i learned:
 * Stamina implementation
 * Power charges pickup implementation
 
-***
 
 ## Features on Oct 13.10
-* Character have HP.
-* Character could receive damage (canonical UE take damage)
-* Gameplay UI for HP
-* On win/lose UI showing race time and provide ability ro restart game
+* Character have HP and HP displaying at UI
+* Character could receive damage (canonical UE take damage with dispatcher)
+* On win/lose UI showing race time and provide ability ro restart game or change level to playground (traps and triggers representation)
+* 5 traps
 
+### Triggers
+* _ATriggetBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class. Decomposition needed.
 
-[Triggers](Source/WG/trigger.cpp):
+### UI
+* _UUserWidget::_[Game HUD](Source/WG/UI/gameHUD.cpp) - represent gameplay UI
+* _UUserWidget::_[Game Over](Source/WG/UI/GameOver.cpp) - represent win/lose menu with opportunity to reset level/try playground
 
-ATriggerBox base
-* Game Start - start game time count and activating some traps (Moving Platform, Hiding Platform)
-* Game Win - cause Win on overlap
-* Game Lose - cause Lose on overlap
-
-## Trap blocks
+### Trap blocks
 * AActor::[ATrapBase](Source/WG/Traps/TrapBase.cpp) - Trap base class
 * UActorComponent::[UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp) - trap component base class
 * _UActorComponent::UTrapBaseComponent::_[Explosive Trap Component](Source/WG/Traps/Trap_Explosive_comp.cpp) - Explosive trap decomposition  
@@ -84,7 +84,6 @@ ATriggerBox base
 * _UActorComponent::UTrapBaseComponent::_[Jump Trap Component](Source/WG/Traps/Trap_Jump_comp.cpp) - Jump trap decomposition
 
 
-***
 
 ## Done
 * ~~Canonical UE TakeDamage switch~~ 11/10

@@ -125,7 +125,6 @@ void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& D
 			AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 			if(GameMode)
 			{
-				UE_LOG(LogTemp,Warning,TEXT("Dead and GameMode ok"));
 				OnGameOver.Broadcast(false);
 			}
 		}

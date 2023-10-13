@@ -18,6 +18,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RestartLevel();
+	UFUNCTION(BlueprintCallable)
+	void PlaygroundStart();
+	
 	UFUNCTION()
 	void SetGameDuration (double GameStarTime, double GameEndtime);
 	UFUNCTION()
