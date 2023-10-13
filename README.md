@@ -2,6 +2,7 @@
 
 ## WIP ideas 
 * !Renew map with new Traps realization! (now broken)
+* ~~ExplosiveTrap Cooldown broke.~~ 13/10
 * Trigger to Component
 * Transfer HUD from character to GameMode
 * Decompose HP
@@ -38,7 +39,7 @@ Sleeping <- **now**
 
 ## Features on Oct 12.10
 * Character have HP.
-* Character could receive damage (non canonical TakeDamage)
+* Character could receive damage (canonical UE take damage)
 * Gameplay UI for HP
 * On win/lose UI showing race time and provide ability ro restart game
 
