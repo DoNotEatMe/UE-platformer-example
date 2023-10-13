@@ -1,10 +1,9 @@
 # -!REFACTORING IN PROCESS WHILE YOU ARE READING THIS!-
 
 ## WIP ideas 
-* !Renew map with new Traps realization! (now broken)
-* ~~ExplosiveTrap Cooldown broke.~~ 13/10
+
 * Trigger to Component
-* Transfer HUD from character to GameMode
+* Transfer HUD from character to GameMode <- **now**
 * Decompose HP
 * Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
 * Ad Damage Types and for traps. Wind dot / poison dot
@@ -32,8 +31,8 @@
 * * ~~Hiding Trap to component~~ 12/10
 * * ~~Jump pad to component~~ 12/10
 * * ~~Clean up code from old realization~~ 12/10
-
-Sleeping <- **now**
+* ~~!Renew map with new Traps realization! (now broken)~~ 13/10
+* ~~ExplosiveTrap Cooldown broke.~~ 13/10
 
 ***
 
