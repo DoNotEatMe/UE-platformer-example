@@ -1,5 +1,7 @@
 Refactoring still in process. Look for [WIP](#wip-ideas) and [Done](#done).
 
+[Download demo](https://drive.google.com/drive/folders/1Zurdc2PK1pH2dLK6nL18UnD1zXxD9FhG?usp=sharing)
+
 ## Prologue
 <details>
  <summary>Initial Task</summary>
@@ -69,8 +71,7 @@ So, what i learned:
 
 
 ## WIP ideas
-* Decompose HP to component
-* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
+* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap <-- Working right now
 * Ad Damage Types and for traps. Wind dot / poison dot
 * More Traps
 * * More traps that could cause player damage
@@ -85,7 +86,8 @@ So, what i learned:
 * ~~Switching to Event Dispatchers~~
 * * ~~UI to dispatcher~~ 11/10
 * * ~~GameOver + Trigger to Dispatcher~~ 11/10
-* * ~~Trap Damage Dispatcher~~ 12/10
+* * ~~Trap Damage Dispatcher~~ 12/10 
+* * * ~~rollback to simple character.applydamage(). Looks more efficient in global.~~ 14/10
 * * ~~Trap activation on Start trigger~~ 13/10
 * ~~Dynamic Material~~ 12/10
 * ~~Refactor variable names for better understanding in BP~~ 12/10
@@ -100,6 +102,8 @@ So, what i learned:
 * ~~!Renew map with new Traps realization! (now broken)~~ 13/10
 * ~~ExplosiveTrap Cooldown broke.~~ 13/10
 * ~~Transfer HUD from character to GameMode~~ 13/10
+* ~~TakeDamage FMath::Clamp for avoiding negative health~~ 14/10
+
 
 ***
 
