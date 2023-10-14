@@ -1,6 +1,4 @@
-# -!REFACTORING IN PROCESS WHILE YOU ARE READING THIS!-
-
-[Download demo](https://drive.google.com/drive/folders/1Zurdc2PK1pH2dLK6nL18UnD1zXxD9FhG?usp=sharing)
+Refactoring still in process. Look for [WIP](#wip-ideas) and [Done](#done).
 
 ## Prologue
 <details>
@@ -45,20 +43,9 @@ So, what i learned:
 </details>
 
 
-## WIP ideas 
-* Decompose HP to component
-* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
-* Ad Damage Types and for traps. Wind dot / poison dot
-* More Traps
-* * More traps that could cause player damage
-* * Traps that slows
-* * Utility traps like speed buff
-* Dash implementation
-* Stamina implementation
-* Power charges pickup implementation
 
 
-## Features on Oct 13.10
+## Features on Oct 14.10
 * Character have HP and HP displaying at UI
 * Character could receive damage (canonical UE take damage with dispatcher)
 * On win/lose UI showing race time and provide ability ro restart game or change level to playground (traps and triggers representation)
@@ -81,6 +68,17 @@ So, what i learned:
 * _UActorComponent::UTrapBaseComponent::_[Jump Trap Component](Source/WG/Traps/Trap_Jump_comp.cpp) - Jump trap decomposition
 
 
+## WIP ideas
+* Decompose HP to component
+* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap
+* Ad Damage Types and for traps. Wind dot / poison dot
+* More Traps
+* * More traps that could cause player damage
+* * Traps that slows
+* * Utility traps like speed buff
+* Dash implementation
+* Stamina implementation
+* Power charges pickup implementation
 
 ## Done
 * ~~Canonical UE TakeDamage switch~~ 11/10
