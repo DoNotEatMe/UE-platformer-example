@@ -39,29 +39,9 @@ void Atrigger::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Other
             
             if (!bTriggerActivated)
             {
-                TArray<AActor*> TrapActors;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(), TrapActors);
-                
-                for (AActor* TrapActor : TrapActors)
-                {
-                    UTrap_MovingPlatform_comp* MovingTrap = Cast<UTrap_MovingPlatform_comp>(TrapActor->GetComponentByClass(UTrap_MovingPlatform_comp::StaticClass()));
-                    if (MovingTrap)
-                    {
-                      MovingTrap->MovingPlatform();
-                        continue;
-                    }
-
-                    UTrap_Hiding_comp* HidingTrap = Cast<UTrap_Hiding_comp>(TrapActor->GetComponentByClass(UTrap_Hiding_comp::StaticClass()));
-                    if (HidingTrap)
-                    {
-                        HidingTrap->HidingTrap();
-                        continue;
-                    }
-                }
-                
+                TrapsStart.Broadcast();
                 OnStart.Broadcast(UGameplayStatics::GetRealTimeSeconds(GetWorld()));
                 bTriggerActivated = true;
-                
             }
             return;
         }
