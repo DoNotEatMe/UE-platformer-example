@@ -52,7 +52,7 @@ So, what i learned:
 * 5 traps
 
 ### Triggers
-* _ATriggetBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class.
+* _ATriggerBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class.
 
 ### UI
 * _UUserWidget::_[Game HUD](Source/WG/UI/gameHUD.cpp) - represent gameplay UI

@@ -2,10 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "TrapBaseComponent.h"
-#include "Engine/DamageEvents.h"
 #include "Trap_Explosive_comp.generated.h"
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FDamageExplosiveTrapCompDelegate, float, DamageDealt, AActor*, Trap, FDamageEvent&, DamageEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class WG_API UTrap_Explosive_comp : public UTrapBaseComponent
@@ -16,9 +13,6 @@ public:
 	UTrap_Explosive_comp();
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY()
-	FDamageExplosiveTrapCompDelegate OnApplyDamage;
 
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);

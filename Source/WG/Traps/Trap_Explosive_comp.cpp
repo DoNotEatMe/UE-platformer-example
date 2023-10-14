@@ -2,6 +2,7 @@
 #include "TrapBase.h"
 #include "Components/BoxComponent.h"
 #include "WG/WGCharacter.h"
+#include "Engine/DamageEvents.h"
 
 UTrap_Explosive_comp::UTrap_Explosive_comp()
 {
@@ -70,7 +71,7 @@ void UTrap_Explosive_comp::Explode(AActor* OtherActor)
 		if (Character)
 		{
 			FDamageEvent DamageEvent;
-			OnApplyDamage.Broadcast(TrapDamage, this->GetOwner(),DamageEvent);
+			Character->ApplyDamage(TrapDamage, this->GetOwner(),DamageEvent);
 		}
 	}
 

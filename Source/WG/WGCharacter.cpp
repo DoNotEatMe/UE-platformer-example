@@ -73,23 +73,6 @@ void AWGCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-
-	// Damage Dispatcher
-	TArray<AActor*> TrapActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(),ATrapBase::StaticClass(),TrapActors);
-	for (AActor* Actor : TrapActors)
-	{
-		ATrapBase* TrapBase = Cast<ATrapBase>(Actor);
-		if (TrapBase)
-		{
-			UTrap_Explosive_comp* Trap = Cast<UTrap_Explosive_comp>(TrapBase->GetComponentByClass(UTrap_Explosive_comp::StaticClass()));
-			if (Trap)
-			{
-				Trap->OnApplyDamage.AddDynamic(this, &AWGCharacter::ApplyDamage);
-			}			
-		}
-	}
-	
 }
 
 float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
