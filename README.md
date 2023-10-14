@@ -52,7 +52,7 @@ So, what i learned:
 * 5 traps
 
 ### Triggers
-* _ATriggetBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class. Decomposition needed.
+* _ATriggetBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class.
 
 ### UI
 * _UUserWidget::_[Game HUD](Source/WG/UI/gameHUD.cpp) - represent gameplay UI
@@ -86,6 +86,7 @@ So, what i learned:
 * * ~~UI to dispatcher~~ 11/10
 * * ~~GameOver + Trigger to Dispatcher~~ 11/10
 * * ~~Trap Damage Dispatcher~~ 12/10
+* * ~~Trap activation on Start trigger~~ 13/10
 * ~~Dynamic Material~~ 12/10
 * ~~Refactor variable names for better understanding in BP~~ 12/10
 * ~~Try to refactor traps to components~~ 12/10
