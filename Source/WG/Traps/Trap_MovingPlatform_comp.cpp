@@ -1,6 +1,8 @@
 #include "Trap_MovingPlatform_comp.h"
 #include "TrapBase.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "WG/trigger.h"
 
 UTrap_MovingPlatform_comp::UTrap_MovingPlatform_comp()
 {
@@ -9,6 +11,18 @@ UTrap_MovingPlatform_comp::UTrap_MovingPlatform_comp()
 void UTrap_MovingPlatform_comp::BeginPlay()
 {
 	Super::BeginPlay();
+
+	TArray<AActor*> Triggers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(),Atrigger::StaticClass(),Triggers);
+	for (AActor* Actor : Triggers)
+	{
+		Atrigger* Trigger = Cast<Atrigger>(Actor);
+		if (Trigger)
+		{
+			Trigger->TrapsStart.AddDynamic(this,&UTrap_MovingPlatform_comp::MovingPlatform);
+		}
+		
+	}
 }
 
 void UTrap_MovingPlatform_comp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
