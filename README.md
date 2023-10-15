@@ -1,6 +1,6 @@
-Refactoring still in process. Look for [WIP](#wip-ideas) and [Done](#done).
+Refactoring stopped at 15/10 11:55 for be honored with deadlines. Look for [WIP](#wip-ideas) and [Done](#done).
 
-[Download demo](https://drive.google.com/drive/folders/1Zurdc2PK1pH2dLK6nL18UnD1zXxD9FhG?usp=sharing)
+[Download demo](https://drive.google.com/drive/folders/1U6Z-zsgy8wzkig4WMwZNN1MmPhY97-Or?usp=sharing) - updated 11:55 15/10
 
 ## Prologue
 <details>
@@ -40,7 +40,8 @@ So, what i learned:
 * Dynamic material with c++
 * I remember class inheritance in UE and made some bases for Engine on-air settings and overriding some functions as ResetTimer() for all traps at once.
 * Canonical UE TakeDamage
-* ...updating...
+* WidgetComponent -> UserWidget call animations + onAnimationFinished pure c++
+* ....
 
 </details>
 
@@ -48,21 +49,22 @@ So, what i learned:
 
 
 ## Features on Oct 14.10
-* Character have HP and HP displaying at UI
-* Character could receive damage (canonical UE take damage with dispatcher)
+* Character have HP, displaying HP at UI and in floating text when receive damage
+* Character could receive damage (canonical UE take damage)
 * On win/lose UI showing race time and provide ability ro restart game or change level to playground (traps and triggers representation)
 * 5 traps
 
 ### Triggers
-* _ATriggerBox::_[trigger.cpp](Source/WG/trigger.cpp) - trigger holding class.
+* _ATriggerBox::_[Trigger](Source/WG/trigger.cpp) - Trigger holder. Start/Win/Lose causer.
 
 ### UI
-* _UUserWidget::_[Game HUD](Source/WG/UI/gameHUD.cpp) - represent gameplay UI
-* _UUserWidget::_[Game Over](Source/WG/UI/GameOver.cpp) - represent win/lose menu with opportunity to reset level/try playground
+* _UUserWidget::_[Game HUD](Source/WG/UI/gameHUD.cpp) - Gameplay UI
+* _UUserWidget::_[Game Over](Source/WG/UI/GameOver.cpp) - Win/lose menu with opportunity to reset level/try playground
+* _UUserWidget::_[Damage Popup](Source/WG/UI/DamagePop.cpp) - Floating popup damage.
 
 ### Trap blocks
 * AActor::[ATrapBase](Source/WG/Traps/TrapBase.cpp) - Trap base class
-* UActorComponent::[UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp) - trap component base class
+* UActorComponent::[UTrapBaseComponent](Source/WG/Traps/TrapBaseComponent.cpp) - Trap component base class
 * _UActorComponent::UTrapBaseComponent::_[Explosive Trap Component](Source/WG/Traps/Trap_Explosive_comp.cpp) - Explosive trap decomposition  
 * _UActorComponent::UTrapBaseComponent::_[Wind Trap Component](Source/WG/Traps/Trap_Wind_comp.cpp) - Wind trap decomposition
 * _UActorComponent::UTrapBaseComponent::_[Moving Platform Component](Source/WG/Traps/Trap_MovingPlatform_comp.cpp) - Moving trap decomposition
@@ -71,15 +73,21 @@ So, what i learned:
 
 
 ## WIP ideas
-* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap <-- Working right now
-* Ad Damage Types and for traps. Wind dot / poison dot
+* Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap (Radial/Box collision/Particle when overlap?)
+* Ad Damage Types and for traps
+* * wind DOT for wind trap
+* * Flat + ignite dot for explosive Trap
+* * Shake trap flat damage (physical?) 
 * More Traps
 * * More traps that could cause player damage
 * * Traps that slows
 * * Utility traps like speed buff
-* Dash implementation
 * Stamina implementation
-* Power charges pickup implementation
+* * Dash implementation
+* * Sprint?
+* Utility pickup
+* * Heal
+* * Stamina
 
 ## Done
 * ~~Canonical UE TakeDamage switch~~ 11/10
@@ -103,6 +111,7 @@ So, what i learned:
 * ~~ExplosiveTrap Cooldown broke.~~ 13/10
 * ~~Transfer HUD from character to GameMode~~ 13/10
 * ~~TakeDamage FMath::Clamp for avoiding negative health~~ 14/10
+* ~~Popup damage~~ 15/10
 
 
 ***

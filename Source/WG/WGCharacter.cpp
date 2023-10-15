@@ -10,10 +10,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "WGGameMode.h"
-#include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
 #include "UI/DamagePop.h"
+#include "Components/WidgetComponent.h"
 
 // TODO: Cleanup
 
@@ -55,15 +55,14 @@ AWGCharacter::AWGCharacter()
 
 	Health = MaxHealth;
 
-	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Damage popup"));
-	WidgetComponent->SetWidgetClass(UDamagePop::StaticClass());
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Damage Pop"));
 	WidgetComponent->SetupAttachment(RootComponent);
-	WidgetComponent->SetRelativeLocation(FVector(0.f,0.f,0.f));
-	WidgetComponent->SetDrawSize(FVector2d(500.f,500.f));
-	WidgetComponent->SetVisibility(true);
-	
-	
-	
+	WidgetComponent->SetWidgetClass(UDamagePop::StaticClass());
+	WidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	WidgetComponent->SetRelativeLocation(FVector(0.f,0.f,100.f));
+	WidgetComponent->SetVisibility(false);
+		
+
 }
 
 void AWGCharacter::BeginPlay()
@@ -79,6 +78,9 @@ void AWGCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	
+	
 }
 
 float AWGCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -105,6 +107,12 @@ void AWGCharacter::ApplyDamage(float DamageAmount, struct FDamageEvent const& Da
 			}
 		}
 		OnHealthUpdated.Broadcast(Health,MaxHealth);
+		
+		UDamagePop* PopInstance = CreateWidget<UDamagePop>(GetWorld(),WidgetComponent->GetWidgetClass());
+		if (PopInstance)
+		{
+			PopInstance->DamagePop(DamageAmount, Cast<APlayerController>(Controller),WidgetComponent);
+		}
 		
 		
 	}

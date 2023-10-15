@@ -17,9 +17,14 @@ class WG_API UDamagePop : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 	
-	UPROPERTY(meta=(BindWidget))
+	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	class UTextBlock* Damage;
 
 	UFUNCTION()
-	void DamagePop(float DamageAmount);
+	void DamagePop(float DamageAmount, APlayerController* PlayerController,UWidgetComponent* WidgetComponent );
+
+	UPROPERTY(Transient, meta = (BindWidgetAnim))
+	UWidgetAnimation* FloatUpAnimation     = nullptr;
+
+	virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
 };

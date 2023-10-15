@@ -2,23 +2,45 @@
 
 
 #include "DamagePop.h"
-#include "Kismet/GameplayStatics.h"
-#include "WG/WGCharacter.h"
+
+#include "Animation/WidgetAnimation.h"
 #include "Components/TextBlock.h"
+#include "Components/WidgetComponent.h"
+#include "WG/WGCharacter.h"
 
 void UDamagePop::NativeConstruct()
 {
 	Super::NativeConstruct();
-	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(),0);
-	AWGCharacter* Player = Cast<AWGCharacter>(Controller);
-	if (Player)
+
+}
+
+void UDamagePop::DamagePop(float DamageAmount, APlayerController* PlayerController, UWidgetComponent* WidgetComponent)
+{
+	UE_LOG(LogTemp,Warning,TEXT("%f"), DamageAmount);
+	FVector2D ScreenPosition;
+	PlayerController->ProjectWorldLocationToScreen(WidgetComponent->GetComponentLocation(),ScreenPosition);
+	this->SetPositionInViewport(ScreenPosition);
+	
+	Damage->SetText(FText(FText::Format(FText::FromString("{0}"),FText::AsNumber(DamageAmount))));
+	this->AddToViewport();
+	this->PlayAnimation(FloatUpAnimation,0,1,EUMGSequencePlayMode::Forward,1,false);
+}
+
+void UDamagePop::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation)
+{
+	Super::OnAnimationFinished_Implementation(Animation);
+	if (Animation == FloatUpAnimation)
 	{
-		//Player->OnHealthUpdated.AddDynamic(this,&UDamagePop::DamagePop);
-		
+		this->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 
-void UDamagePop::DamagePop(float DamageAmount)
-{
-	Damage->SetText(FText::AsNumber(DamageAmount));
-}
+
+
+
+
+
+
+
+
+

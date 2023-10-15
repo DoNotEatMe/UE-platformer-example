@@ -84,5 +84,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	class UWidgetComponent* WidgetComponent;
+		
 };
 
