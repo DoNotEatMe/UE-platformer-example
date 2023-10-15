@@ -48,7 +48,7 @@ So, what i learned:
 
 
 
-## Features on Oct 14.10
+## Features on Oct 15.10
 * Character have HP, displaying HP at UI and in floating text when receive damage
 * Character could receive damage (canonical UE take damage)
 * On win/lose UI showing race time and provide ability ro restart game or change level to playground (traps and triggers representation)
@@ -74,7 +74,7 @@ So, what i learned:
 
 ## WIP ideas
 * Refactor to AOE Damage instead of just getting overlapped in ExplosiveTrap (Radial/Box collision/Particle when overlap?)
-* Ad Damage Types and for traps
+* Add Damage Types and for traps
 * * wind DOT for wind trap
 * * Flat + ignite dot for explosive Trap
 * * Shake trap flat damage (physical?) 
