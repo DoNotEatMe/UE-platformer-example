@@ -63,18 +63,17 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-	
-
+		
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health")
 	float MaxHealth = 100.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health")
 	float Health;
 
-
+	UFUNCTION(BlueprintCallable)
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-	UFUNCTION()
-	void ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent);
+	UFUNCTION(BlueprintCallable)
+	void ApplyDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 	
 	
 	UPROPERTY(BlueprintAssignable)
@@ -82,5 +81,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FGameOverFromCharacterDelegate OnGameOver;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	class UWidgetComponent* WidgetComponent;
 };
 

@@ -24,7 +24,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	double GameEndTime;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category="UI")
 	TSubclassOf<class UgameHUD> PlayerHUDClass;
 	UPROPERTY()
 	UgameHUD* PlayerHUD;

@@ -9,17 +9,13 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "WG/UI/gameHUD.h"
-#include "WG/Traps/TrapBase.h"
-#include "WG/Traps/Trap_Explosive_comp.h"
 #include "WGGameMode.h"
+#include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/DamageEvents.h"
+#include "UI/DamagePop.h"
 
 // TODO: Cleanup
-
-//////////////////////////////////////////////////////////////////////////
-// AWGCharacter
 
 AWGCharacter::AWGCharacter()
 {
@@ -58,6 +54,16 @@ AWGCharacter::AWGCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
 	Health = MaxHealth;
+
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Damage popup"));
+	WidgetComponent->SetWidgetClass(UDamagePop::StaticClass());
+	WidgetComponent->SetupAttachment(RootComponent);
+	WidgetComponent->SetRelativeLocation(FVector(0.f,0.f,0.f));
+	WidgetComponent->SetDrawSize(FVector2d(500.f,500.f));
+	WidgetComponent->SetVisibility(true);
+	
+	
+	
 }
 
 void AWGCharacter::BeginPlay()
@@ -75,17 +81,22 @@ void AWGCharacter::BeginPlay()
 	}
 }
 
-float AWGCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+float AWGCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 }
 
-void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& DamageEvent)
+void AWGCharacter::ApplyDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+	if (DamageAmount <= 0)
+	{
+		return;
+	}
+	
 	if (Health > 0 ){
-		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, this->GetController(), Trap);
-		Health -= ActualDamage;
-		if (Health <= 0)
+		float ActualDamage = TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+		Health = FMath::Clamp(Health - ActualDamage, 0.0f,MaxHealth);
+		if (Health == 0)
 		{
 			AWGGameMode* GameMode = Cast<AWGGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 			if(GameMode)
@@ -94,6 +105,8 @@ void AWGCharacter::ApplyDamage(float DamageAmount, AActor* Trap, FDamageEvent& D
 			}
 		}
 		OnHealthUpdated.Broadcast(Health,MaxHealth);
+		
+		
 	}
 }
 

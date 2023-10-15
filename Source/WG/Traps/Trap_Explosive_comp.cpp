@@ -71,7 +71,8 @@ void UTrap_Explosive_comp::Explode(AActor* OtherActor)
 		if (Character)
 		{
 			FDamageEvent DamageEvent;
-			Character->ApplyDamage(TrapDamage, this->GetOwner(),DamageEvent);
+			
+			Character->ApplyDamage(TrapDamage, DamageEvent,this->GetOwner()->GetInstigatorController(),OwnerActor);
 		}
 	}
 
