@@ -1,6 +1,7 @@
 Refactoring stopped at 15/10 11:55 for be honored with deadlines. Look for [WIP](#wip-ideas) and [Done](#done).
 
 [Download demo](https://drive.google.com/drive/folders/1U6Z-zsgy8wzkig4WMwZNN1MmPhY97-Or?usp=sharing) - updated 11:55 15/10
+[Video Explanation](https://www.youtube.com/watch?v=UvQbHmwlPWs&ab_channel=Pin)
 
 ## Prologue
 <details>
